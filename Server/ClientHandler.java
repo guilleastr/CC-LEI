@@ -16,12 +16,15 @@ public class ClientHandler implements Runnable {
     public void run() {
         
         try {
+            // getting write and read streams from socket
             DataOutputStream out = new DataOutputStream(this.socket.getOutputStream());
             DataInputStream in = new DataInputStream(this.socket.getInputStream());
 
+            String fromClient = in.readUTF(); // reads from socket input stream.
             
-            System.out.println(in.readUTF());
-            out.writeUTF("Hello Alice");
+            System.out.println(fromClient);
+            fromClient = fromClient.toUpperCase();
+            out.writeUTF(fromClient);
 
             in.close();
 
