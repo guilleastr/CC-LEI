@@ -1,66 +1,69 @@
 package packages;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
+
+import packages.types.Package_Executor;
+import packages.types.ReadPackage;
 
 public class PackageParser {
 
-    public byte[] type;
-    public byte[] size;
+    public int type;
+    public int size;
     public byte[] bytes;
 
+    public Package_Executor parsePackage(byte[] bytes) {
+        this.type = Arrays.copyOfRange(bytes, 0, 1)[0];
 
-    public void parsePackage(byte[] bytes){
-        this.type=Arrays.copyOfRange(bytes, 0, 1);
-        
-        switch (type[0]){
+        switch (type) {
             case 1:
-                parseControlPackage(bytes);
+                return parseControlPackage(bytes);
             case 2:
-                parseReadPackage(bytes);
+                return parseReadPackage(bytes);
             case 3:
-                parseWritePackage(bytes);
-            case 4: 
-                parseDataPackage(bytes);
+                return parseWritePackage(bytes);
+            case 4:
+                return parseDataPackage(bytes);
             case 5:
-                parseAckPackage(bytes);
+                return parseAckPackage(bytes);
             case 6:
-                parseErrorPackage(bytes);
+                return parseErrorPackage(bytes);
         }
-
-
-
-    }
-
-
-    private void parseReadPackage(byte[] bytes2) {
-        this.size=Arrays.copyOfRange(bytes2, 1, 3);
-        this.bytes=Arrays.copyOfRange(bytes2, 3, 1400);
+        return null;
 
     }
 
+    private Package_Executor parseReadPackage(byte[] bytes2) {
+        this.size = Arrays.copyOfRange(bytes2, 1, 2)[0];
+        this.bytes = Arrays.copyOfRange(bytes2, 2, 1400);
+        String file_name = new String(this.bytes).toString();
 
-    private void parseErrorPackage(byte[] bytes2) {
+        ReadPackage rp = new ReadPackage(type, size, file_name);
+        return rp;
+
     }
 
-
-    private void parseAckPackage(byte[] bytes2) {
+    private Package_Executor parseErrorPackage(byte[] bytes2) {
+        return null;
     }
 
-
-    private void parseWritePackage(byte[] bytes2) {
-        this.size=Arrays.copyOfRange(bytes2, 1, 3);
-        this.bytes=Arrays.copyOfRange(bytes2, 3, 1400);
+    private Package_Executor parseAckPackage(byte[] bytes2) {
+        return null;
     }
 
-
-    private void parseDataPackage(byte[] bytes2) {
+    private Package_Executor parseWritePackage(byte[] bytes2) {
+        this.size = Arrays.copyOfRange(bytes2, 1, 2)[0];
+        this.bytes = Arrays.copyOfRange(bytes2, 2, 1400);
+        return null;
     }
 
-
-    private void parseControlPackage(byte[] bytes2) {
-        this.size=Arrays.copyOfRange(bytes2, 1, 3);
-        this.bytes=Arrays.copyOfRange(bytes2, 3, 1400);
+    private Package_Executor parseDataPackage(byte[] bytes2) {
+        return null;
     }
-    
+
+    private Package_Executor parseControlPackage(byte[] bytes2) {
+        this.size = Arrays.copyOfRange(bytes2, 1, 2)[0];
+        this.bytes = Arrays.copyOfRange(bytes2, 2, 1400);
+        return null;
+    }
+
 }

@@ -8,9 +8,9 @@ public class ControlPackage extends Base_Package{
     }
 
     @Override
-    public void execute() {
+    public Void execute() {
         // TODO Auto-generated method stub
-        
+        return null;
     }
     
 }

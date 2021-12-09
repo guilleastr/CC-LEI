@@ -1,14 +1,14 @@
 package packages.types;
 
-public abstract class Base_Package {
+public abstract class Base_Package implements Package_Executor{
 
-    private int type;
+    protected int type;
 
     public Base_Package(int type) {
         this.type = type;
 
     }
 
-    public abstract void execute();
+    public abstract Void  execute();
 
 }
