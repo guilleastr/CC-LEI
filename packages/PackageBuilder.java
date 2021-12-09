@@ -128,7 +128,7 @@ public class PackageBuilder {
     }
 
     private void checkPackageSize(byte[] bytes) {
-        if (bytes.length > 1400) {
+        if (bytes.length > MAX_PACKAGE_SIZE) {
             throw new ExceptionInInitializerError("Data Too Big");
         }
     }
