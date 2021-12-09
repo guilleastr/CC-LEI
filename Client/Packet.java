@@ -1,2 +1,6 @@
-package PACKAGE_NAME;public class Packet {
+package Client;
+
+
+
+public class Packet {
 }
