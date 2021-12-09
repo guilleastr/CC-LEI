@@ -17,7 +17,7 @@ public class AcknowlegementPacakge extends Base_Package{
 
     @Override
     public Void execute() {
-        // TODO Auto-generated method stub
+        System.out.println("ACK #"+ackNumber);
         return null;
     }
 
@@ -33,7 +33,4 @@ public class AcknowlegementPacakge extends Base_Package{
         this.ackNumber = nr;
     }
 
-
-
-    
 }
