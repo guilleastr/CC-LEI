@@ -1,8 +1,8 @@
 package packages.types;
 
-public class DataPacakge extends Base_Package{
+public class DataPackage extends Base_Package{
 
-    public DataPacakge(int type) {
+    public DataPackage(int type) {
         super(type);
         //TODO Auto-generated constructor stub
     }

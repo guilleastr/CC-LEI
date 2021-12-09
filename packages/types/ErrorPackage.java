@@ -1,8 +1,8 @@
 package packages.types;
 
-public class ErrorPacakge extends Base_Package{
+public class ErrorPackage extends Base_Package{
 
-    public ErrorPacakge(int type) {
+    public ErrorPackage(int type) {
         super(type);
         //TODO Auto-generated constructor stub
     }

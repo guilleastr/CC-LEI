@@ -29,7 +29,7 @@ public class AcknowlegementPacakge extends Base_Package{
         return this.ackNumber;
     }
 
-    public int setAckNumber(int nr){
+    public void setAckNumber(int nr){
         this.ackNumber = nr;
     }
 
