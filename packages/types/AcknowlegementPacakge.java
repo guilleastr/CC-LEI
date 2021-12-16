@@ -68,7 +68,8 @@ public class AcknowlegementPacakge extends Base_Package{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AcknowlegementPacakge that = (AcknowlegementPacakge) o;
-        return ackNumber == that.ackNumber && segmentation == that.segmentation && size_file_name == that.size_file_name && Objects.equals(file_name, that.file_name);
+        return ackNumber == that.ackNumber && segmentation == that.segmentation
+                && size_file_name == that.size_file_name && Objects.equals(file_name, that.file_name);
     }
 
     @Override
