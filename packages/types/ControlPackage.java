@@ -1,39 +1,49 @@
 package packages.types;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ControlPackage extends Base_Package{
 
     //Usa-se o @ como delimitador
 
-    private int type;
-    private int size;
+    private short size;
     private List<String> file_name;
 
     public ControlPackage(int type) {
         super(type);
-        //TODO Auto-generated constructor stub
+        this.size = 0;
+        this.file_name = new ArrayList<>();
     }
 
-    public ControlPackage(int type, int size, List<String> file_name){
-        this.type = type;
+    public ControlPackage(int type, short size, List<String> file_name){
+        super(type);
         this.size = size;
         this.file_name = file_name;
     }
 
     @Override
-    public void execute() {
-        System.out.println(getType());
+    public Void execute() {
         System.out.println(getSize());
         System.out.println(getStringOfFileNames());
+        return null;
     }
 
-    public int getType() {
-        return type;
-    }
-
-    public int getSize() {
+    public short getSize() {
         return size;
+    }
+
+    public void setSize(short size) {
+        this.size = size;
+    }
+
+    public List<String> getFile_name() {
+        return file_name;
+    }
+
+    public void setFile_name(List<String> file_name) {
+        this.file_name = file_name;
     }
 
     public String getStringOfFileNames() {
@@ -44,5 +54,22 @@ public class ControlPackage extends Base_Package{
             sb.append(file_name.get(i));
         }
         return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ControlPackage that = (ControlPackage) o;
+        return size == that.size && Objects.equals(file_name, that.file_name);
+    }
+
+    @Override
+    public String toString() {
+        return "ControlPackage{" +
+                "type=" + type +
+                ", size=" + size +
+                ", file_name=" + file_name +
+                '}';
     }
 }
