@@ -2,6 +2,9 @@ package packages.types;
 
 public class DataPackage extends Base_Package{
 
+    private int dataSegment;
+    
+
     public DataPackage(int type) {
         super(type);
         //TODO Auto-generated constructor stub
