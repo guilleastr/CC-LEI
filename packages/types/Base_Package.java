@@ -6,9 +6,8 @@ public abstract class Base_Package implements Package_Executor{
 
     public Base_Package(int type) {
         this.type = type;
-
     }
 
-    public abstract Void  execute();
+    public abstract Void execute();
 
 }
