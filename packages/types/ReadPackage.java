@@ -2,8 +2,7 @@ package packages.types;
 
 public class ReadPackage extends Base_Package {
 
-    private int type;
-    private int size;
+    private short size;
     private String file_name;
 
     public ReadPackage(int type) {
@@ -11,7 +10,7 @@ public class ReadPackage extends Base_Package {
         // TODO Auto-generated constructor stub
     }
 
-    public ReadPackage(int type, int size, String file_name) {
+    public ReadPackage(int type, short size, String file_name) {
         super(type);
         this.size = size;
         this.file_name = file_name;
@@ -36,14 +35,14 @@ public class ReadPackage extends Base_Package {
     /**
      * @return int return the size
      */
-    public int getSize() {
+    public short getSize() {
         return size;
     }
 
     /**
      * @param size the size to set
      */
-    private void setSize(int size) {
+    private void setSize(short size) {
         this.size = size;
     }
 

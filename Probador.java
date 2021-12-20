@@ -12,12 +12,15 @@ public class Probador {
 
         PackageParser pp= new PackageParser();
         try {
-            byte[] pack= pb.buildReadPacakge("word.opd");
+            //byte[] pack= pb.buildReadPacakge("woreeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeworeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeworeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee.opd");
+            byte[] pack2= pb.buildReadPacakge("file.txt");
             
-            Package_Executor pe=pp.parsePackage(pack);
+            //Package_Executor pe=pp.parsePackage(pack);
+            Package_Executor pe2=pp.parsePackage(pack2);
 
-            pe.execute();
-           
+
+            //pe.execute();
+           pe2.execute();
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

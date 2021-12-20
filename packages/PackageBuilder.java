@@ -6,17 +6,17 @@ import java.util.ArrayList;
 
 public class PackageBuilder {
 
-    private static final byte[] CONTROL_TYPE = { 1 };
-    private static final byte[] READ_TYPE = { 2 };
-    private static final byte[] WRITE_TYPE = { 3 };
-    private static final byte[] DATA_TYPE = { 4 };
-    private static final byte[] ACK_TYPE = { 5 };
-    private static final byte[] ERROR_TYPE = { 6 };
+    private static final byte CONTROL_TYPE =  1 ;
+    private static final byte READ_TYPE =  2 ;
+    private static final byte WRITE_TYPE =  3 ;
+    private static final byte DATA_TYPE =  4 ;
+    private static final byte ACK_TYPE =  5 ;
+    private static final byte ERROR_TYPE =  6 ;
 
     public final static int MAX_PACKAGE_SIZE = 1400;
 
     public byte[] buildControlPackage(ArrayList<String> filenames) throws IOException {
-        byte[] type = CONTROL_TYPE;
+        byte type = CONTROL_TYPE;
 
         String filenames_str = "";
 
@@ -40,11 +40,11 @@ public class PackageBuilder {
 
     public byte[] buildReadPacakge(String filename) throws IOException {
 
-        byte[] type = READ_TYPE;
+        byte type = READ_TYPE;
 
         byte[] filename_bytes = filename.getBytes();
 
-        int size = filename_bytes.length;
+        short size = (short) filename_bytes.length;
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         baos.write(type);
@@ -60,7 +60,7 @@ public class PackageBuilder {
     }
 
     public byte[] buildWritePackage(String filename) throws IOException {
-        byte[] type = WRITE_TYPE;
+        byte type = WRITE_TYPE;
 
         byte[] filename_bytes = filename.getBytes();
 
@@ -79,7 +79,7 @@ public class PackageBuilder {
     }
 
     public byte[] buildDataPacakge(byte[] data, int segmentation) throws IOException {
-        byte[] type = DATA_TYPE;
+        byte type = DATA_TYPE;
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         baos.write(type);
@@ -96,7 +96,7 @@ public class PackageBuilder {
 
     public byte[] buildAcknowledgementPackage(int segmentation, String filename) throws IOException {
 
-        byte[] type = ACK_TYPE;
+        byte type = ACK_TYPE;
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         baos.write(type);
@@ -112,7 +112,7 @@ public class PackageBuilder {
     }
 
     public byte[] buildErrorPackage(int type_error, String error_msg) throws IOException {
-        byte[] type = ERROR_TYPE;
+        byte type = ERROR_TYPE;
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         baos.write(type);
