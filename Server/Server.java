@@ -1,6 +1,5 @@
 package Server;
 
-
 import java.net.*;
 import java.io.*;
 
@@ -17,6 +16,7 @@ public class Server {
             ServerSocket ssocket = new ServerSocket(port);
             while (running) {                                           // bad partice - inifinite loop
                 // one thread by client     
+            	System.out.println("Request recieved");
                 ClientHandler ch = new ClientHandler(ssocket.accept()); // socket.accept - listens to clients and accepts the connection returning a new socket 
                 Thread t = new Thread(ch);
                 t.start();

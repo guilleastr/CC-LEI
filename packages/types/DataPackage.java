@@ -5,30 +5,25 @@ import java.util.Objects;
 public class DataPackage extends Base_Package{
 
     private short sizeSegment;
-    private int segmentation;
-    private String data;
+    private short segmentation;
+    private byte[] data;
 
 
 
-    public DataPackage(int type) {
-        super(type);
-        this.sizeSegment = 0;
-        this.segmentation = 0;
-        this.data = "";
-    }
 
-    public DataPackage(int type, short sizeSegment, int segmentation, String data){
+    public DataPackage(int type, short sizeSegment, short segmentation, byte[] bytes){
         super(type);
         this.sizeSegment = sizeSegment;
         this.segmentation = segmentation;
-        this.data = data;
+        this.data = bytes;
     }
 
     @Override
-    public Void execute() {
+    public  byte[] execute() {
+    	System.out.println(getType());
         System.out.println(sizeSegment);
         System.out.println(segmentation);
-        System.out.println(data);
+        System.out.println(new String(data).toString());
         return null;
     }
 
@@ -44,17 +39,25 @@ public class DataPackage extends Base_Package{
         return segmentation;
     }
 
-    public void setSegmentation(int segmentation) {
+    public void setSegmentation(short segmentation) {
         this.segmentation = segmentation;
     }
 
-    public String getData() {
+    public byte[] getData() {
         return data;
     }
 
-    public void setData(String data) {
+    public void setData(byte[] data) {
         this.data = data;
     }
+    
+	/**
+	 * @return int return the type
+	 */
+	public int getType() {
+		return super.type;
+	}
+
 
     @Override
     public boolean equals(Object o) {
@@ -70,7 +73,7 @@ public class DataPackage extends Base_Package{
                 "type=" + type +
                 ", sizeSegment=" + sizeSegment +
                 ", segmentation=" + segmentation +
-                ", data='" + data + '\'' +
+                ", data='" + data.toString() + '\'' +
                 '}';
     }
 }

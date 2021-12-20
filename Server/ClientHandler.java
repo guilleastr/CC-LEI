@@ -1,8 +1,12 @@
 package Server;
 
 
-import java.net.*;
-import java.io.*;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.Socket;
+
+import packages.PackageParser;
 
 public class ClientHandler implements Runnable {
     private Socket socket;
@@ -20,19 +24,21 @@ public class ClientHandler implements Runnable {
         
         try {
             // getting write and read streams from socket
-            DataOutputStream out = new DataOutputStream(this.socket.getOutputStream());
+            //DataOutputStream out = new DataOutputStream(this.socket.getOutputStream());
             DataInputStream in = new DataInputStream(this.socket.getInputStream());
 
-            String fromClient = in.readUTF(); // reads from socket input stream.
-            
-            System.out.println(fromClient);
-            fromClient = fromClient.toUpperCase();
-            out.writeUTF(fromClient);
+           
 
+            
+            PackageParser pp= new PackageParser();
+            byte[] response= pp.parsePackage(in.readAllBytes()).execute();
+            //DataOutputStream out = new DataOutputStream(this.socket.getOutputStream());
+            //out.write(response);
+            System.out.println("Closing");
             in.close();
 
-            out.flush();
-            out.close();
+//            out.flush();
+//            out.close();
 
             socket.close();
         } catch (IOException e) {

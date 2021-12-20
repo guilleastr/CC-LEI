@@ -4,20 +4,13 @@ import java.util.Objects;
 
 public class AcknowlegementPacakge extends Base_Package{
 
-    private int ackNumber;
-    private int segmentation;
+    private short ackNumber;
+    private short segmentation;
     private short size_file_name;
-    private String file_name;
+    private byte[] file_name;
 
-    public AcknowlegementPacakge(int type) {
-        super(type);
-        this.ackNumber = 0;
-        this.segmentation = 0;
-        this.size_file_name = 0;
-        this.file_name = "";
-    }
 
-    public AcknowlegementPacakge(int type, int ackNR, int seg, short size, String name){
+    public AcknowlegementPacakge(short type, short ackNR, short seg, short size, byte[] name){
         super(type);
         this.ackNumber = ackNR;
         this.segmentation = seg;
@@ -26,24 +19,24 @@ public class AcknowlegementPacakge extends Base_Package{
     }
 
     @Override
-    public Void execute() {
-        System.out.println("ACK #"+getAckNumber()+ "| Seg #"+ getSegmentation()+ " | FileName: "+ getFile_name());
+    public  byte[] execute() {
+        System.out.println("ACK #"+getAckNumber()+ "| Seg #"+ getSegmentation()+ " | FileName: "+ new String(getFile_name()).toString());
         return null;
     }
 
-    public int getAckNumber() {
+    public short getAckNumber() {
         return ackNumber;
     }
 
-    public void setAckNumber(int ackNumber) {
+    public void setAckNumber(short ackNumber) {
         this.ackNumber = ackNumber;
     }
 
-    public int getSegmentation() {
+    public short getSegmentation() {
         return segmentation;
     }
 
-    public void setSegmentation(int segmentation) {
+    public void setSegmentation(short segmentation) {
         this.segmentation = segmentation;
     }
 
@@ -55,11 +48,11 @@ public class AcknowlegementPacakge extends Base_Package{
         this.size_file_name = size_file_name;
     }
 
-    public String getFile_name() {
+    public byte[] getFile_name() {
         return file_name;
     }
 
-    public void setFile_name(String file_name) {
+    public void setFile_name(byte[] file_name) {
         this.file_name = file_name;
     }
 

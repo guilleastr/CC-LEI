@@ -1,8 +1,10 @@
 package packages.types;
 
+import java.io.IOException;
+
 public interface Package_Executor {
 
 
-    public Void execute();
+    public  byte[] execute() throws IOException;
     
 }

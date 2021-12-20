@@ -1,73 +1,83 @@
 package packages.types;
 
+import java.io.IOException;
 import java.util.Objects;
+
+import file.FileManager;
+import packages.PackageBuilder;
+import packages.PackageParser;
 
 public class ReadPackage extends Base_Package {
 
-    private short size;
-    private String file_name;
+	private short size;
+	private byte[] file_name;
 
-    public ReadPackage(int type) {
-        super(type);
-        this.size = 0;
-        this.file_name= "";
-    }
+	private PackageBuilder pb = new PackageBuilder();
 
-    public ReadPackage(int type, short size, String file_name) {
-        super(type);
-        this.size = size;
-        this.file_name = file_name;
-    }
+	public ReadPackage(int type, short size, byte[] file_name) {
+		super(type);
+		this.size = size;
+		this.file_name = file_name;
+	}
 
-    @Override
-    public Void execute() {
-        System.out.println(getSize());
-        System.out.println(getFile_name());
-        return null;
-    }
+	@Override
+	public byte[] execute() throws IOException {
 
-    /**
-     * @return int return the type
-     */
-    public int getType() {
-        return super.type;
-    }
+		FileManager fm = new FileManager(getParsedName());
 
+		if (fm.checkFile()) {
+			System.out.println(this.getType());
+			System.out.println(getSize());
+			System.out.println(new String(getFile_name()).toString());
 
-    /**
-     * @return int return the size
-     */
-    public short getSize() {
-        return size;
-    }
+			return pb.buildAcknowledgementPackage(0, this.getParsedName());
 
-    /**
-     * @param size the size to set
-     */
-    private void setSize(short size) {
-        this.size = size;
-    }
+		}
 
-    public String getFile_name() {
-        return file_name;
-    }
+		return pb.buildErrorPackage(1, "file not available");
 
-    public void setFile_name(String file_name) {
-        this.file_name = file_name;
-    }
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ReadPackage that = (ReadPackage) o;
-        return size == that.size && Objects.equals(file_name, that.file_name);
-    }
+	/**
+	 * @return int return the type
+	 */
+	public int getType() {
+		return super.type;
+	}
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Size: ").append(size).append(" | File name: ").append(file_name);
-        return sb.toString();
-    }
+	/**
+	 * @return int return the size
+	 */
+	public short getSize() {
+		return size;
+	}
+
+	public byte[] getFile_name() {
+		return file_name;
+	}
+
+	public void setFile_name(byte[] file_name) {
+		this.file_name = file_name;
+	}
+
+	private String getParsedName() {
+		return new String(getFile_name()).toString();
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		ReadPackage that = (ReadPackage) o;
+		return size == that.size && Objects.equals(file_name, that.file_name);
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("Size: ").append(size).append(" | File name: ").append(file_name);
+		return sb.toString();
+	}
 }

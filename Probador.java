@@ -1,9 +1,11 @@
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Arrays;
 
 import packages.PackageBuilder;
 import packages.PackageParser;
-import packages.types.Package_Executor;
 
 public class Probador {
 
@@ -12,15 +14,17 @@ public class Probador {
 
         PackageParser pp= new PackageParser();
         try {
-            //byte[] pack= pb.buildReadPacakge("woreeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeworeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeworeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee.opd");
-            byte[] pack2= pb.buildReadPacakge("file.txt");
-            
-            //Package_Executor pe=pp.parsePackage(pack);
-            Package_Executor pe2=pp.parsePackage(pack2);
-
-
-            //pe.execute();
-           pe2.execute();
+        	 BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        	 byte[] data= pb.buildControlPackage( Arrays.asList("Fichero1.txt","fichero2.txt"));
+        	 //byte[] data=pb.buildWritePackage("fichero.txt");
+             //byte[] data=pb.buildReadPacakge("Hola Mundo");
+        	 //byte[] info="Hola Mundo".getBytes();
+        	 //byte[] data=pb.buildDataPacakge(info, 0);
+        	 //byte[] data=pb.buildAcknowledgementPackage(0, "fichero1.txt");
+        	 //byte[] data=pb.buildErrorPackage(1,"Fichero no disponible");
+        	 
+             pp.parsePackage(data).execute();
+             
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

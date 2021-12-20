@@ -2,15 +2,52 @@ package packages.types;
 
 public class WritePackage extends Base_Package{
 
-    public WritePackage(int type) {
-        super(type);
-        //TODO Auto-generated constructor stub
-    }
+	private short size;
+	private byte[] file_name;
+
+
+
+	public WritePackage(int type, short size, byte[] file_name) {
+		super(type);
+		this.size = size;
+		this.file_name = file_name;
+	}
+
+
+	
 
     @Override
-    public Void execute() {
-        // TODO Auto-generated method stub
-        return null;
+    public byte[] execute() {
+    	System.out.println(this.getType());
+    	System.out.println(getSize());
+    	System.out.println(new String(getFile_name()).toString());
+    	return null;
+    	
     }
+
+
+
+
+	public short getSize() {
+		return size;
+	}
+
+
+
+
+	public byte[] getFile_name() {
+		return file_name;
+	}
+    
+	
+	/**
+	 * @return int return the type
+	 */
+	public int getType() {
+		return super.type;
+	}
+
+    
+    
     
 }

@@ -1,5 +1,7 @@
 package packages.types;
 
+import java.io.IOException;
+
 public abstract class Base_Package implements Package_Executor{
 
     protected int type;
@@ -8,6 +10,6 @@ public abstract class Base_Package implements Package_Executor{
         this.type = type;
     }
 
-    public abstract Void execute();
+    public abstract  byte[] execute()throws IOException;
 
 }

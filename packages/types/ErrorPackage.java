@@ -4,18 +4,12 @@ import java.util.Objects;
 
 public class ErrorPackage extends Base_Package{
 
-    private int typeError;
+    private short typeError;
     private short size;
-    private String message;
+    private byte[] message;
 
-    public ErrorPackage(int type) {
-        super(type);
-        this.typeError = 0;
-        this.size = 0;
-        this.message = "";
-    }
 
-    public ErrorPackage(int type, int typeError, short size, String msg){
+    public ErrorPackage(int type, short typeError, short size, byte[] msg){
         super(type);
         this.typeError = typeError;
         this.size = size;
@@ -23,10 +17,11 @@ public class ErrorPackage extends Base_Package{
     }
 
     @Override
-    public Void execute() {
-        System.out.println(typeError);
-        System.out.println(size);
-        System.out.println(message);
+    public  byte[] execute() {
+    	System.out.println(getType());
+    	System.out.println(getTypeError());
+        System.out.println(getSize());
+        System.out.println(new String(getMessage()).toString());
         return null;
     }
 
@@ -34,7 +29,7 @@ public class ErrorPackage extends Base_Package{
         return typeError;
     }
 
-    public void setTypeError(int typeError) {
+    public void setTypeError(short typeError) {
         this.typeError = typeError;
     }
 
@@ -46,13 +41,21 @@ public class ErrorPackage extends Base_Package{
         this.size = size;
     }
 
-    public String getMessage() {
+    public byte[] getMessage() {
         return message;
     }
 
-    public void setMessage(String message) {
+    public void setMessage(byte[] message) {
         this.message = message;
     }
+    
+	/**
+	 * @return int return the type
+	 */
+	public int getType() {
+		return super.type;
+	}
+
 
     @Override
     public boolean equals(Object o) {

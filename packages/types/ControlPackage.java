@@ -1,7 +1,6 @@
 package packages.types;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 import java.util.Objects;
 
 public class ControlPackage extends Base_Package{
@@ -9,24 +8,21 @@ public class ControlPackage extends Base_Package{
     //Usa-se o @ como delimitador
 
     private short size;
-    private List<String> file_name;
+    private byte[] files;
 
-    public ControlPackage(int type) {
-        super(type);
-        this.size = 0;
-        this.file_name = new ArrayList<>();
-    }
 
-    public ControlPackage(int type, short size, List<String> file_name){
+
+    public ControlPackage(int type, short size,byte[] files){
         super(type);
         this.size = size;
-        this.file_name = file_name;
+        this.files = files;
     }
 
     @Override
-    public Void execute() {
+    public  byte[] execute() {
+    	System.out.println(getType());
         System.out.println(getSize());
-        System.out.println(getStringOfFileNames());
+        System.out.println(Arrays.asList(new String(files).toString().split("\n")).toString());
         return null;
     }
 
@@ -38,30 +34,36 @@ public class ControlPackage extends Base_Package{
         this.size = size;
     }
 
-    public List<String> getFile_name() {
-        return file_name;
+    public byte[] getfiles() {
+        return files;
     }
 
-    public void setFile_name(List<String> file_name) {
-        this.file_name = file_name;
+    public void setfiles(byte[] files) {
+        this.files = files;
     }
 
-    public String getStringOfFileNames() {
-        StringBuilder sb = new StringBuilder();
+	/*
+	 * public String getStringOfFileNames() { StringBuilder sb = new
+	 * StringBuilder();
+	 * 
+	 * for (int i = 0; i < files.size(); i++) { sb.append('@');
+	 * sb.append(files.get(i)); } return sb.toString(); }
+	 */
+    
+	/**
+	 * @return int return the type
+	 */
+	public int getType() {
+		return super.type;
+	}
 
-        for (int i = 0; i < file_name.size(); i++) {
-            sb.append('@');
-            sb.append(file_name.get(i));
-        }
-        return sb.toString();
-    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ControlPackage that = (ControlPackage) o;
-        return size == that.size && Objects.equals(file_name, that.file_name);
+        return size == that.size && Objects.equals(files, that.files);
     }
 
     @Override
@@ -69,7 +71,7 @@ public class ControlPackage extends Base_Package{
         return "ControlPackage{" +
                 "type=" + type +
                 ", size=" + size +
-                ", file_name=" + file_name +
+                ", files=" + files +
                 '}';
     }
 }
