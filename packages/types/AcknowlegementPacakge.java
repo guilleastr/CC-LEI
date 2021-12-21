@@ -2,7 +2,7 @@ package packages.types;
 
 import java.util.Objects;
 
-public class AcknowlegementPacakge extends Base_Package{
+public class AcknowlegementPacakge extends Base_Package implements Package_Executor{
 
     private short ackNumber;
     private short segmentation;
@@ -18,7 +18,7 @@ public class AcknowlegementPacakge extends Base_Package{
         this.file_name = name;
     }
 
-    @Override
+   
     public  byte[] execute() {
         System.out.println("ACK #"+getAckNumber()+ "| Seg #"+ getSegmentation()+ " | FileName: "+ new String(getFile_name()).toString());
         return null;

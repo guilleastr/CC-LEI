@@ -43,12 +43,6 @@ public class FileManager {
 		return Arrays.copyOfRange(data, start, end);
 	}
 
-	private String getFilename() {
-		return filename;
-	}
 
-	private byte[] getData() {
-		return data;
-	}
 
 }

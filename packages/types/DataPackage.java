@@ -2,7 +2,7 @@ package packages.types;
 
 import java.util.Objects;
 
-public class DataPackage extends Base_Package{
+public class DataPackage extends Base_Package  implements Package_Executor{
 
     private short sizeSegment;
     private short segmentation;
@@ -18,7 +18,7 @@ public class DataPackage extends Base_Package{
         this.data = bytes;
     }
 
-    @Override
+    
     public  byte[] execute() {
     	System.out.println(getType());
         System.out.println(sizeSegment);

@@ -2,7 +2,7 @@ package packages.types;
 
 import java.util.Objects;
 
-public class ErrorPackage extends Base_Package{
+public class ErrorPackage extends Base_Package  implements Package_Executor{
 
     private short typeError;
     private short size;
@@ -16,7 +16,7 @@ public class ErrorPackage extends Base_Package{
         this.message = msg;
     }
 
-    @Override
+    
     public  byte[] execute() {
     	System.out.println(getType());
     	System.out.println(getTypeError());

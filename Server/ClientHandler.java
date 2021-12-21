@@ -9,6 +9,10 @@ import packages.PackageBuilder;
 import packages.PackageParser;
 import packages.types.Package_Executor;
 
+/**
+ * Created when a server recieves a request. ClientHandler process the request and sends back a response
+ *
+ */
 public class ClientHandler implements Runnable {
 	private Socket socket;
 
@@ -38,6 +42,7 @@ public class ClientHandler implements Runnable {
 				response = PackageBuilder.buildErrorPackage(0, "Could not read package");
 			}
 			DataOutputStream out = new DataOutputStream(this.socket.getOutputStream());
+			//CustomDataOutStream out= new CustomDataOutStream(this.socket.getOutputStream(), this.socket.getRemoteSocketAddress(),  this.socket.getPort());
 			if(response!=null) {
 				out.write(response);
 			}

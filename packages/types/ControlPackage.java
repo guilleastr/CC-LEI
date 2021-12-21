@@ -6,7 +6,7 @@ import java.util.Objects;
 import file.CustomFile;
 import file.DirectoryManagerSingleton;
 
-public class ControlPackage extends Base_Package{
+public class ControlPackage extends Base_Package implements Package_Executor{
 
     //Usa-se o @ como delimitador
 
@@ -21,7 +21,7 @@ public class ControlPackage extends Base_Package{
         this.files = files;
     }
 
-    @Override
+    
     public  byte[] execute() {
     	System.out.println(getType());
         System.out.println(getSize());

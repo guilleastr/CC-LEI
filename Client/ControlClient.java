@@ -24,12 +24,16 @@ public class ControlClient implements Runnable {
 
 	}
 
+	/**
+	 *Starts the controlClient
+	 */
 	@Override
 	public void run() {
 		System.out.println("connecting to " + this.ip + ":" + this.port);
 		try {
 			DirectoryManager dm = DirectoryManagerSingleton.getInstance();
 			while (true) {
+				//Creates a conecction with the remote server
 				Socket client = new Socket(this.ip, port); // socket with the server ip and port
 
 				List<String> filenames = dm.getAvailableFiles();

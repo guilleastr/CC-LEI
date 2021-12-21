@@ -6,11 +6,10 @@ import java.util.Objects;
 import file.FileManager;
 import packages.PackageBuilder;
 
-public class ReadPackage extends Base_Package {
+public class ReadPackage extends Base_Package implements Package_Executor {
 
 	private short size;
 	private byte[] file_name;
-
 
 	public ReadPackage(int type, short size, byte[] file_name) {
 		super(type);
@@ -18,7 +17,7 @@ public class ReadPackage extends Base_Package {
 		this.file_name = file_name;
 	}
 
-	@Override
+	
 	public byte[] execute() throws IOException {
 
 		FileManager fm = new FileManager(getParsedName());

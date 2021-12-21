@@ -21,6 +21,13 @@ public class PackageBuilder {
     
     
 
+    /**
+     * Creates a byte[] with the information of the files in the system (file,name,date)
+     * 
+     * @param filenames
+     * @return
+     * @throws IOException
+     */
     public static byte[] buildControlPackage(List<String> filenames) throws IOException {
         byte type = CONTROL_TYPE;
 
@@ -50,6 +57,12 @@ public class PackageBuilder {
 
     }
 
+    /**
+     * Creates a byte[] with the information of the filename for the request
+     * @param filename
+     * @return
+     * @throws IOException
+     */
     public static byte[] buildReadPacakge(String filename) throws IOException {
 
         byte type = READ_TYPE;
@@ -72,6 +85,12 @@ public class PackageBuilder {
 
     }
 
+    /**
+     * Creates a byte[] with the information of the filename for the request
+     * @param filename
+     * @return
+     * @throws IOException
+     */
     public static byte[] buildWritePackage(String filename) throws IOException {
         byte type = WRITE_TYPE;
 
@@ -91,6 +110,13 @@ public class PackageBuilder {
 
     }
 
+    /**
+     * Creates a byte[] with the information of the data and segmentation for the request
+     * @param data
+     * @param segmentation
+     * @return
+     * @throws IOException
+     */
     public static byte[] buildDataPacakge(byte[] data, int segmentation) throws IOException {
         byte type = DATA_TYPE;
         short size= (short) data.length;
@@ -109,6 +135,13 @@ public class PackageBuilder {
 
     }
 
+    /**
+     * Creates a byte[] with the segmentation and filename for the request
+     * @param segmentation
+     * @param filename
+     * @return
+     * @throws IOException
+     */
     public static byte[] buildAcknowledgementPackage(int segmentation, String filename) throws IOException {
 
         byte type = ACK_TYPE;
@@ -136,6 +169,13 @@ public class PackageBuilder {
 
     }
 
+    /**
+     * Creates a byte[] with the information of the error with type of error and the message for the request
+     * @param type_error
+     * @param error_msg
+     * @return
+     * @throws IOException
+     */
     public static byte[] buildErrorPackage(int type_error, String error_msg) throws IOException {
         byte type = ERROR_TYPE;
 
@@ -158,12 +198,21 @@ public class PackageBuilder {
 
     }
 
+    /**
+     * Checks the size of the final package is less than the maximum allowed size
+     * @param bytes
+     */
     private static void checkPackageSize(byte[] bytes) {
         if (bytes.length > MAX_PACKAGE_SIZE) {
             throw new ExceptionInInitializerError("Data Too Big");
         }
     }
 
+    /**
+     * Creates a fixed size byte[] from a byte[]
+     * @param bytes
+     * @return
+     */
     private static byte[] buildPackage(byte[] bytes) {
         byte[] pack = new byte[MAX_PACKAGE_SIZE];
 

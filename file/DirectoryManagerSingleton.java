@@ -9,6 +9,11 @@ public class DirectoryManagerSingleton {
 	private DirectoryManagerSingleton() {
 	}
 
+	
+	/**
+	 * Creates or return if exist a instance of the Directory manager
+	 * @return
+	 */
 	public static DirectoryManager getInstance() {
 		if (instance == null) {
 			instance = new DirectoryManager(full_path);
@@ -16,6 +21,10 @@ public class DirectoryManagerSingleton {
 		return instance;
 	}
 
+	/**
+	 * Initializes the Directory manager Params
+	 * @param fullPath
+	 */
 	public static void init(String fullPath) {
 		instance = new DirectoryManager(fullPath);
 

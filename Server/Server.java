@@ -16,6 +16,10 @@ public class Server implements Runnable{
 		this.port = port;
 	}
 
+	/**
+	 *
+	 *Starts the server
+	 */
 	@Override
 	public void run() {
 		int port = this.port;

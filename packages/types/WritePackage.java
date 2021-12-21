@@ -1,11 +1,9 @@
 package packages.types;
 
-public class WritePackage extends Base_Package{
+public class WritePackage extends Base_Package implements Package_Executor {
 
 	private short size;
 	private byte[] file_name;
-
-
 
 	public WritePackage(int type, short size, byte[] file_name) {
 		super(type);
@@ -13,33 +11,22 @@ public class WritePackage extends Base_Package{
 		this.file_name = file_name;
 	}
 
+	public byte[] execute() {
+		System.out.println(this.getType());
+		System.out.println(getSize());
+		System.out.println(new String(getFile_name()).toString());
+		return null;
 
-	
-
-    @Override
-    public byte[] execute() {
-    	System.out.println(this.getType());
-    	System.out.println(getSize());
-    	System.out.println(new String(getFile_name()).toString());
-    	return null;
-    	
-    }
-
-
-
+	}
 
 	public short getSize() {
 		return size;
 	}
 
-
-
-
 	public byte[] getFile_name() {
 		return file_name;
 	}
-    
-	
+
 	/**
 	 * @return int return the type
 	 */
@@ -47,7 +34,4 @@ public class WritePackage extends Base_Package{
 		return super.type;
 	}
 
-    
-    
-    
 }
