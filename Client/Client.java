@@ -42,7 +42,7 @@ public class Client {
                 
                 System.out.println("Data Sent");
                 PackageParser pp= new PackageParser();
-                pp.parsePackage(in.readAllBytes());
+                //pp.parsePackage(in.readAllBytes());
 
                 in.close();
 
