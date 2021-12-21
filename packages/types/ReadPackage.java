@@ -5,14 +5,12 @@ import java.util.Objects;
 
 import file.FileManager;
 import packages.PackageBuilder;
-import packages.PackageParser;
 
 public class ReadPackage extends Base_Package {
 
 	private short size;
 	private byte[] file_name;
 
-	private PackageBuilder pb = new PackageBuilder();
 
 	public ReadPackage(int type, short size, byte[] file_name) {
 		super(type);
@@ -30,11 +28,11 @@ public class ReadPackage extends Base_Package {
 			System.out.println(getSize());
 			System.out.println(new String(getFile_name()).toString());
 
-			return pb.buildAcknowledgementPackage(0, this.getParsedName());
+			return PackageBuilder.buildAcknowledgementPackage(0, this.getParsedName());
 
 		}
 
-		return pb.buildErrorPackage(1, "file not available");
+		return PackageBuilder.buildErrorPackage(1, "file not available");
 
 	}
 

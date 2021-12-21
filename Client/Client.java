@@ -28,10 +28,7 @@ public class Client {
                 Socket client = new Socket(serverIP, port);  // socket with the server ip and port
 
                
-
-                System.out.println("File to check:");
-                PackageBuilder pb= new PackageBuilder();
-                byte[] data=pb.buildReadPacakge(reader.readLine());
+                byte[] data=PackageBuilder.buildReadPacakge(reader.readLine());
                 
                 // write and read streams from socket
                 DataOutputStream out = new DataOutputStream(client.getOutputStream());
@@ -41,7 +38,6 @@ public class Client {
                 DataInputStream in = new DataInputStream(client.getInputStream());
                 
                 System.out.println("Data Sent");
-                PackageParser pp= new PackageParser();
                 //pp.parsePackage(in.readAllBytes());
 
                 in.close();

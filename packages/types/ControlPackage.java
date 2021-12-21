@@ -1,7 +1,10 @@
 package packages.types;
 
-import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
+
+import file.CustomFile;
+import file.DirectoryManagerSingleton;
 
 public class ControlPackage extends Base_Package{
 
@@ -22,7 +25,8 @@ public class ControlPackage extends Base_Package{
     public  byte[] execute() {
     	System.out.println(getType());
         System.out.println(getSize());
-        System.out.println(Arrays.asList(new String(files).toString().split("\n")).toString());
+        List<CustomFile> customFiles= DirectoryManagerSingleton.getInstance().parseCustomFiles(new String(files));
+        System.out.println(customFiles.toString());
         return null;
     }
 

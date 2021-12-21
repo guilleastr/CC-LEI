@@ -4,6 +4,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
 
+import file.CustomFile;
+import file.DirectoryManager;
+import file.DirectoryManagerSingleton;
+
 public class PackageBuilder {
 
     private static final byte CONTROL_TYPE =  1 ;
@@ -14,15 +18,22 @@ public class PackageBuilder {
     private static final byte ERROR_TYPE =  6 ;
 
     public final static int MAX_PACKAGE_SIZE = 1400;
+    
+    
 
-    public byte[] buildControlPackage(List<String> filenames) throws IOException {
+    public static byte[] buildControlPackage(List<String> filenames) throws IOException {
         byte type = CONTROL_TYPE;
 
         String filenames_str = "";
-
-        for (String filename : filenames) {
-            filenames_str = filenames_str + filename + "\n";
+        
+        DirectoryManager dm= DirectoryManagerSingleton.getInstance();
+        
+        List<CustomFile> customFiles=dm.generateCustomFiles(filenames);
+        
+        for (CustomFile file : customFiles) {
+            filenames_str = filenames_str+ file.toStringFormat();
         }
+        
 
         short size = (short) filenames_str.length();
         byte[] size_write=new byte[]{(byte)(size>>>8),(byte)(size&0xFF)};
@@ -39,7 +50,7 @@ public class PackageBuilder {
 
     }
 
-    public byte[] buildReadPacakge(String filename) throws IOException {
+    public static byte[] buildReadPacakge(String filename) throws IOException {
 
         byte type = READ_TYPE;
 
@@ -61,7 +72,7 @@ public class PackageBuilder {
 
     }
 
-    public byte[] buildWritePackage(String filename) throws IOException {
+    public static byte[] buildWritePackage(String filename) throws IOException {
         byte type = WRITE_TYPE;
 
         byte[] filename_bytes = filename.getBytes();
@@ -80,7 +91,7 @@ public class PackageBuilder {
 
     }
 
-    public byte[] buildDataPacakge(byte[] data, int segmentation) throws IOException {
+    public static byte[] buildDataPacakge(byte[] data, int segmentation) throws IOException {
         byte type = DATA_TYPE;
         short size= (short) data.length;
         byte[] size_write=new byte[]{(byte)(size>>>8),(byte)(size&0xFF)};
@@ -98,7 +109,7 @@ public class PackageBuilder {
 
     }
 
-    public byte[] buildAcknowledgementPackage(int segmentation, String filename) throws IOException {
+    public static byte[] buildAcknowledgementPackage(int segmentation, String filename) throws IOException {
 
         byte type = ACK_TYPE;
         
@@ -125,7 +136,7 @@ public class PackageBuilder {
 
     }
 
-    public byte[] buildErrorPackage(int type_error, String error_msg) throws IOException {
+    public static byte[] buildErrorPackage(int type_error, String error_msg) throws IOException {
         byte type = ERROR_TYPE;
 
         short error_t=(short)type_error;
@@ -147,13 +158,13 @@ public class PackageBuilder {
 
     }
 
-    private void checkPackageSize(byte[] bytes) {
+    private static void checkPackageSize(byte[] bytes) {
         if (bytes.length > MAX_PACKAGE_SIZE) {
             throw new ExceptionInInitializerError("Data Too Big");
         }
     }
 
-    private byte[] buildPackage(byte[] bytes) {
+    private static byte[] buildPackage(byte[] bytes) {
         byte[] pack = new byte[MAX_PACKAGE_SIZE];
 
         for (int i = 0; i < bytes.length; i++) {
