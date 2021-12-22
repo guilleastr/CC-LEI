@@ -87,4 +87,14 @@ public class DirectoryManager {
 		return customFiles;
 	}
 
+	public byte[] getRange(byte[] mainFile, int sizeOfChunk, int numChunk) {
+		byte[] range;
+		if((numChunk+1)*sizeOfChunk > mainFile.length){
+			range = Arrays.copyOfRange(mainFile,numChunk*sizeOfChunk, mainFile.length);
+		} else {
+			range = Arrays.copyOfRange(mainFile,numChunk*sizeOfChunk, (numChunk+1)*sizeOfChunk);
+		}
+		return range;
+	}
+
 }
