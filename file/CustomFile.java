@@ -62,9 +62,27 @@ public class CustomFile {
 		this.md5 = hashtext;
 
 	}
+	
+	
+	
+	public String getName() {
+		return file.getName();
+	}
 
 	public void setMd5(String md5) {
 		this.md5 = md5;
+	}
+	
+	
+
+	public String getMd5() {
+		return md5;
+	}
+	
+	
+
+	public long getTime() {
+		return time;
 	}
 
 	@Override

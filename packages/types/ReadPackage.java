@@ -1,6 +1,8 @@
 package packages.types;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import file.FileManager;
@@ -17,21 +19,23 @@ public class ReadPackage extends Base_Package implements Package_Executor {
 		this.file_name = file_name;
 	}
 
-	
-	public byte[] execute() throws IOException {
+	public List<byte[]> execute() throws IOException {
 
 		FileManager fm = new FileManager(getParsedName());
 
+		List<byte[]> responses = new ArrayList<>();
 		if (fm.checkFile()) {
 			System.out.println(this.getType());
 			System.out.println(getSize());
 			System.out.println(new String(getFile_name()).toString());
 
-			return PackageBuilder.buildAcknowledgementPackage(0, this.getParsedName());
+			responses.add(PackageBuilder.buildAcknowledgementPackage(0, this.getParsedName()));
 
+		} else {
+
+			responses.add(PackageBuilder.buildErrorPackage(1, "file not available"));
 		}
-
-		return PackageBuilder.buildErrorPackage(1, "file not available");
+		return responses;
 
 	}
 

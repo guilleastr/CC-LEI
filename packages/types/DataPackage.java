@@ -1,6 +1,10 @@
 package packages.types;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+
+import packages.PackageBuilder;
 
 public class DataPackage extends Base_Package  implements Package_Executor{
 
@@ -19,7 +23,9 @@ public class DataPackage extends Base_Package  implements Package_Executor{
     }
 
     
-    public  byte[] execute() {
+    public  List<byte[]> execute() {
+    	
+    	List<byte[]> responses = new ArrayList<>();
     	System.out.println(getType());
         System.out.println(sizeSegment);
         System.out.println(segmentation);

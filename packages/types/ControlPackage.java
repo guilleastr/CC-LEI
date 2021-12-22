@@ -1,50 +1,75 @@
 package packages.types;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 import file.CustomFile;
+import file.DirectoryManager;
 import file.DirectoryManagerSingleton;
+import packages.PackageBuilder;
 
-public class ControlPackage extends Base_Package implements Package_Executor{
+public class ControlPackage extends Base_Package implements Package_Executor {
 
-    //Usa-se o @ como delimitador
+	// Usa-se o @ como delimitador
 
-    private short size;
-    private byte[] files;
+	private short size;
+	private byte[] files;
 
+	public ControlPackage(int type, short size, byte[] files) {
+		super(type);
+		this.size = size;
+		this.files = files;
+	}
 
+	public List<byte[]> execute() {
+		System.out.println(getType());
+		System.out.println(getSize());
+		List<CustomFile> remoteFiles = DirectoryManagerSingleton.getInstance().parseCustomFiles(new String(files));
+		System.out.println(remoteFiles.toString());
 
-    public ControlPackage(int type, short size,byte[] files){
-        super(type);
-        this.size = size;
-        this.files = files;
-    }
+		List<CustomFile> localFiles = DirectoryManagerSingleton.getInstance()
+				.generateCustomFiles(DirectoryManagerSingleton.getInstance().getAvailableFiles());
 
-    
-    public  byte[] execute() {
-    	System.out.println(getType());
-        System.out.println(getSize());
-        List<CustomFile> customFiles= DirectoryManagerSingleton.getInstance().parseCustomFiles(new String(files));
-        System.out.println(customFiles.toString());
-        return null;
-    }
+		List<byte[]> responses = new ArrayList<>();
+		for (CustomFile cf : remoteFiles) {
+			for (CustomFile cf2 : localFiles) {
+				if (cf2.getName().equals(cf.getName())) {
+					if (!cf2.getMd5().equals(cf.getMd5())) {
+						try {
+							if (cf.getTime() < cf2.getTime()) {
+								responses.add(PackageBuilder.buildWritePackage(cf.getName()));
+							} else {
+								responses.add(PackageBuilder.buildReadPacakge(cf2.getName()));
+							}
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				}
+			}
+		}
 
-    public short getSize() {
-        return size;
-    }
+		return responses;
+	}
 
-    public void setSize(short size) {
-        this.size = size;
-    }
+	public short getSize() {
+		return size;
+	}
 
-    public byte[] getfiles() {
-        return files;
-    }
+	public void setSize(short size) {
+		this.size = size;
+	}
 
-    public void setfiles(byte[] files) {
-        this.files = files;
-    }
+	public byte[] getfiles() {
+		return files;
+	}
+
+	public void setfiles(byte[] files) {
+		this.files = files;
+	}
 
 	/*
 	 * public String getStringOfFileNames() { StringBuilder sb = new
@@ -53,7 +78,7 @@ public class ControlPackage extends Base_Package implements Package_Executor{
 	 * for (int i = 0; i < files.size(); i++) { sb.append('@');
 	 * sb.append(files.get(i)); } return sb.toString(); }
 	 */
-    
+
 	/**
 	 * @return int return the type
 	 */
@@ -61,21 +86,18 @@ public class ControlPackage extends Base_Package implements Package_Executor{
 		return super.type;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		ControlPackage that = (ControlPackage) o;
+		return size == that.size && Objects.equals(files, that.files);
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ControlPackage that = (ControlPackage) o;
-        return size == that.size && Objects.equals(files, that.files);
-    }
-
-    @Override
-    public String toString() {
-        return "ControlPackage{" +
-                "type=" + type +
-                ", size=" + size +
-                ", files=" + files +
-                '}';
-    }
+	@Override
+	public String toString() {
+		return "ControlPackage{" + "type=" + type + ", size=" + size + ", files=" + files + '}';
+	}
 }

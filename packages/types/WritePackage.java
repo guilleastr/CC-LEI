@@ -1,5 +1,8 @@
 package packages.types;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class WritePackage extends Base_Package implements Package_Executor {
 
 	private short size;
@@ -11,7 +14,9 @@ public class WritePackage extends Base_Package implements Package_Executor {
 		this.file_name = file_name;
 	}
 
-	public byte[] execute() {
+	public List<byte[]> execute() {
+		
+		List<byte[]> responses = new ArrayList<>();
 		System.out.println(this.getType());
 		System.out.println(getSize());
 		System.out.println(new String(getFile_name()).toString());

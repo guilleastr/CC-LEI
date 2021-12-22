@@ -1,6 +1,7 @@
 package packages.types;
 
 import java.io.IOException;
+import java.util.List;
 
 public interface Package_Executor {
 
@@ -10,6 +11,6 @@ public interface Package_Executor {
      * @return
      * @throws IOException
      */
-    public  byte[] execute() throws IOException;
+    public  List<byte[]> execute() throws IOException;
     
 }
