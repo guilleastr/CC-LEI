@@ -2,14 +2,14 @@ package packages.types;
 
 public abstract class Base_Package {
 
-    protected int type;
+    protected short type;
 
-    public Base_Package(int type) {
+    public Base_Package(short type) {
         this.type = type;
     }
 
     
-    protected int getType() {
+    public int getType() {
     	return type;
     }
 

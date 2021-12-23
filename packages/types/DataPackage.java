@@ -1,13 +1,13 @@
 package packages.types;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-import packages.PackageBuilder;
-
 public class DataPackage extends Base_Package  implements Package_Executor{
 
+	private byte[] filename;
     private short sizeSegment;
     private short segmentation;
     private byte[] data;
@@ -15,15 +15,17 @@ public class DataPackage extends Base_Package  implements Package_Executor{
 
 
 
-    public DataPackage(int type, short sizeSegment, short segmentation, byte[] bytes){
-        super(type);
-        this.sizeSegment = sizeSegment;
-        this.segmentation = segmentation;
-        this.data = bytes;
-    }
 
-    
-    public  List<byte[]> execute() {
+    public DataPackage(short type, byte[] filename, short size, short segment, byte[] bytes) {
+    	super(type);
+    	this.filename=filename;
+        this.sizeSegment = size;
+        this.segmentation = segment;
+        this.data = bytes;
+	}
+
+
+	public  List<byte[]> execute() {
     	
     	List<byte[]> responses = new ArrayList<>();
     	System.out.println(getType());
@@ -47,6 +49,10 @@ public class DataPackage extends Base_Package  implements Package_Executor{
 
     public void setSegmentation(short segmentation) {
         this.segmentation = segmentation;
+    }
+    
+    public String getFileName() {
+    	return Arrays.toString(this.filename);
     }
 
     public byte[] getData() {

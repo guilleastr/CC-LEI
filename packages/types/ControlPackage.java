@@ -17,17 +17,15 @@ public class ControlPackage extends Base_Package implements Package_Executor {
 	private short size;
 	private byte[] files;
 
-	public ControlPackage(int type, short size, byte[] files) {
+	public ControlPackage(short type, short size, byte[] files) {
 		super(type);
 		this.size = size;
 		this.files = files;
 	}
 
 	public List<byte[]> execute() {
-		System.out.println(getType());
-		System.out.println(getSize());
 		List<CustomFile> remoteFiles = DirectoryManagerSingleton.getInstance().parseCustomFiles(new String(files));
-		System.out.println(remoteFiles.toString());
+		
 
 		List<CustomFile> localFiles = DirectoryManagerSingleton.getInstance()
 				.generateCustomFiles(DirectoryManagerSingleton.getInstance().getAvailableFiles());
@@ -50,6 +48,12 @@ public class ControlPackage extends Base_Package implements Package_Executor {
 					}
 				}
 			}
+		}
+		try {
+			responses.add(PackageBuilder.buildReadPacakge("Prueba"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 		return responses;
