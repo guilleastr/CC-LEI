@@ -98,4 +98,8 @@ public class DirectoryManager {
 		
 	}
 
+	public boolean checkCompleted(String filename, short segmentation) {
+		return new FileManager(filename).getDataLength()>=segmentation;
+	}
+
 }

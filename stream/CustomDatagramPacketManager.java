@@ -22,7 +22,7 @@ public class CustomDatagramPacketManager {
 	public void write(List<byte[]> dataList) throws IOException {
 		if (dataList.size() == 1) {
 			DatagramSocket dsUndefined = new DatagramSocket();
-			DatagramPacket send = new DatagramPacket(dataList.get(0), PackageBuilder.MAX_PACKAGE_SIZE,this.ip, this.port);
+			DatagramPacket send = new DatagramPacket(dataList.get(0), PackageBuilder.MAX_PACKAGE_SIZE,this.ip, 5555);
 			dsUndefined.send(send);
 			System.out.println("Package Return: " + dataList.get(0)[0]);
 

@@ -39,7 +39,6 @@ public class DataPackage extends Base_Package  implements Package_Executor{
     	System.out.println(getType());
         System.out.println(sizeSegment);
         System.out.println(segmentation);
-        System.out.println(new String(data).toString());
         return responses;
     }
 
@@ -60,7 +59,7 @@ public class DataPackage extends Base_Package  implements Package_Executor{
     }
     
     public String getFileName() {
-    	return Arrays.toString(this.filename);
+    	return new String(this.filename).toString();
     }
 
     public byte[] getData() {

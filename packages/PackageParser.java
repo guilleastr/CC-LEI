@@ -103,11 +103,11 @@ public class PackageParser {
 	 * @return
 	 */
 	private static Package_Executor parseDataPackage(byte[] data, short type) {
-		short size = ByteBuffer.wrap(Arrays.copyOfRange(data, 1, 3)).getShort();
-		short filename_size=ByteBuffer.wrap(Arrays.copyOfRange(data, 3, 5)).getShort();
-		byte[] filename=Arrays.copyOfRange(data, 5, 5+filename_size);
+		short filename_size = ByteBuffer.wrap(Arrays.copyOfRange(data, 1, 3)).getShort();
+		byte[] filename=Arrays.copyOfRange(data, 3, 3+filename_size);
+		short size= ByteBuffer.wrap(Arrays.copyOfRange(data, 3+filename_size, 5+filename_size)).getShort();
 		short segment = ByteBuffer.wrap(Arrays.copyOfRange(data, 5+filename_size, 7+filename_size)).getShort();
-		byte[] bytes = Arrays.copyOfRange(data, 7+filename_size, 7 + size+filename_size);
+		byte[] bytes = Arrays.copyOfRange(data, 7+filename_size, 7+ size+filename_size);
 		return new DataPackage(type,filename, size, segment, bytes);
 	}
 
