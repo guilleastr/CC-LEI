@@ -2,7 +2,6 @@ package packages.types;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -25,7 +24,7 @@ public class DataPackage extends Base_Package implements Package_Executor {
 	}
 
 	public List<byte[]> execute() {
-		System.out.println("DATA: " + this.getFileName());
+		System.out.println("DATA: " + this.getFileName()+ " | Segment: "+this.segmentation +" | Total: "+this.segmentation*PackageBuilder.MAX_DATA_FOR_PACKAGE);
 		List<byte[]> responses = new ArrayList<>();
 		try {
 			
@@ -33,7 +32,6 @@ public class DataPackage extends Base_Package implements Package_Executor {
 			responses.add(PackageBuilder.buildAcknowledgementPackage(this.segmentation, PackageBuilder.DATA_TYPE,
 					this.getFileName()));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		System.out.println("DATA #" + "| SEGMENT #" + getSegmentation() + " | FileName: " + getFileName());

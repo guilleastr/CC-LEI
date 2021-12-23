@@ -23,6 +23,9 @@ public class ErrorPackage extends Base_Package implements Package_Executor {
 	}
 
 	public List<byte[]> execute() {
+		
+		System.out.println("ERROR #" + " | TYPE: " + this.typeError);
+
 		List<byte[]> responses = new ArrayList<>();
 		System.out.println(getType());
 		System.out.println(getTypeError());

@@ -29,7 +29,7 @@ public class FileManager {
 
 		String full_path = DirectoryManagerSingleton.getInstance().getFullPath();
 
-		File file = new File(full_path + "\\" + this.filename);
+		File file = new File(full_path + "/" + this.filename);
 		this.data = new byte[(int) file.length()];
 
 		FileInputStream fileInputStream = new FileInputStream(file);

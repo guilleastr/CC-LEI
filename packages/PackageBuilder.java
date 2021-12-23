@@ -16,8 +16,8 @@ public class PackageBuilder {
 	public static final byte DATA_TYPE = 4;
 	public static final byte ACK_TYPE = 5;
 	public static final byte ERROR_TYPE = 6;
-	
-	public static final int MAX_DATA_FOR_PACKAGE=1300;
+
+	public static final int MAX_DATA_FOR_PACKAGE = 1300;
 
 	public final static int MAX_PACKAGE_SIZE = 1400;
 
@@ -122,7 +122,7 @@ public class PackageBuilder {
 	 */
 	public static byte[] buildDataPacakge(String filename, byte[] data, int segmentation) throws IOException {
 		byte type = DATA_TYPE;
-		short filename_size=(short) filename.length();
+		short filename_size = (short) filename.length();
 		byte[] filename_size_write = new byte[] { (byte) (filename_size >>> 8), (byte) (filename_size & 0xFF) };
 		short size = (short) data.length;
 		byte[] size_write = new byte[] { (byte) (size >>> 8), (byte) (size & 0xFF) };
@@ -150,7 +150,8 @@ public class PackageBuilder {
 	 * @return
 	 * @throws IOException
 	 */
-	public static byte[] buildAcknowledgementPackage(int segmentation, byte answer, String filename) throws IOException {
+	public static byte[] buildAcknowledgementPackage(int segmentation, byte answer, String filename)
+			throws IOException {
 
 		byte type = ACK_TYPE;
 
@@ -160,8 +161,7 @@ public class PackageBuilder {
 		short size = (short) filename.length();
 		byte[] size_write = new byte[] { (byte) (size >>> 8), (byte) (size & 0xFF) };
 
-		byte[] answer_write =new byte[] { (byte) (answer >>> 8), (byte) (answer & 0xFF) };
-		
+		byte[] answer_write = new byte[] { (byte) (answer >>> 8), (byte) (answer & 0xFF) };
 
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		baos.write(type);
@@ -186,12 +186,8 @@ public class PackageBuilder {
 	 * @return
 	 * @throws IOException
 	 */
-
-	//Change this
 	public static byte[] buildErrorPackage(byte type_error, String error_msg) throws IOException {
 		byte type = ERROR_TYPE;
-
-		byte error_t = (byte) type_error;
 
 		short error_msg_size = (short) error_msg.length();
 		byte[] error_msg_size_write = new byte[] { (byte) (error_msg_size >>> 8), (byte) (error_msg_size & 0xFF) };

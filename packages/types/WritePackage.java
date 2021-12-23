@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import file.DirectoryManagerSingleton;
 import file.FileManager;
 import packages.PackageBuilder;
 
@@ -20,7 +19,8 @@ public class WritePackage extends Base_Package implements Package_Executor {
 	}
 
 	public List<byte[]> execute() {
-		
+		System.out.println("WRITE #" +  " | FileName: " + getParsedName());
+
 		FileManager fm = new FileManager(getParsedName());
 
 		List<byte[]> responses = new ArrayList<>();
@@ -30,9 +30,6 @@ public class WritePackage extends Base_Package implements Package_Executor {
 			System.out.println(this.getType());
 			System.out.println(getSize());
 			System.out.println(new String(getFile_name()).toString());
-
-			byte[] data = DirectoryManagerSingleton.getInstance().getNextBytes(this.getParsedName(), 0,
-					PackageBuilder.MAX_DATA_FOR_PACKAGE);
 			try {
 				responses.add(PackageBuilder.buildAcknowledgementPackage(0, PackageBuilder.WRITE_TYPE, this.getParsedName()));
 			} catch (IOException e) {

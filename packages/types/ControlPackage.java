@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Objects;
 
 import file.CustomFile;
-import file.DirectoryManager;
 import file.DirectoryManagerSingleton;
 import packages.PackageBuilder;
 
@@ -35,19 +34,7 @@ public class ControlPackage extends Base_Package implements Package_Executor {
 		List<CustomFile> localFiles = DirectoryManagerSingleton.getInstance()
 				.generateCustomFiles(DirectoryManagerSingleton.getInstance().getAvailableFiles());
 
-		List<byte[]> responses = new ArrayList<>();
-		
-		try {
-			responses.add(PackageBuilder.buildReadPacakge("fichero.txt"));
-			responses.add(PackageBuilder.buildReadPacakge("fichero2.txt"));
-			responses.add(PackageBuilder.buildReadPacakge("Mi word.docx"));
-			return responses;
-			
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-	
+		List<byte[]> responses = new ArrayList<>();	
 		
 		for (CustomFile cf : remoteFiles) {
 			for (CustomFile cf2 : localFiles) {
@@ -60,19 +47,21 @@ public class ControlPackage extends Base_Package implements Package_Executor {
 								responses.add(PackageBuilder.buildReadPacakge(cf2.getName()));
 							}
 						} catch (IOException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 					}
 				}
 			}
 		}
-		try {
-			responses.add(PackageBuilder.buildReadPacakge("Prueba"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if(responses.size()==0) {
+			try {
+				responses.add(PackageBuilder.buildAcknowledgementPackage(0, PackageBuilder.CONTROL_TYPE, ""));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
+		
 
 		return responses;
 	}

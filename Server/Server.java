@@ -46,13 +46,12 @@ public class Server implements Runnable {
 			while (running) { // bad partice - inifinite loop
 				// one thread by client
 
-				// createConnection(s);
 				DatagramPacket dp = new DatagramPacket(new byte[PackageBuilder.MAX_PACKAGE_SIZE],
 						PackageBuilder.MAX_PACKAGE_SIZE);
 				ds.receive(dp);
 
-				ClientHandler ch = new ClientHandler(dp); // socket.accept - listens to clients and
-															// accepts the connection returning a new socket
+				ClientHandler ch = new ClientHandler(dp);
+				//createConnection(dp);
 				Thread t = new Thread(ch);
 				t.start();
 			}
@@ -63,13 +62,14 @@ public class Server implements Runnable {
 
 	}
 
-	private void createConnection(Socket s) throws IOException {
-		String ip = ((InetSocketAddress) s.getRemoteSocketAddress()).getAddress().getHostAddress();
+	private void createConnection(DatagramPacket dp) throws IOException {
+		
+		String ip = new String(dp.getAddress().getAddress()).toString();
 		if (!conenctedIPs.contains(ip)) {
 			conenctedIPs.add(ip);
 			ControlClient cc = new ControlClient(ip);
 			System.out.println("New ControlClient Created!");
-			System.out.println("New Connection: " + ip );
+			System.out.println("New Connection: " + ip);
 			Thread t = new Thread(cc);
 			t.start();
 		}

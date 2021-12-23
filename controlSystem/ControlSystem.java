@@ -26,34 +26,29 @@ public class ControlSystem {
 	 */
 	public static void main(String[] args) {
 
-		int port;
 		try {
 			// Singleton DirectoryManager, in order to make the file access global and
 			// unique
 			DirectoryManagerSingleton.getInstance();
-			DirectoryManagerSingleton.init(FULL_PATH);
-
-			// Star parameters of the server: Command input
-			// Port of this server
-//			System.out.print("Port of server: ");
-			
+			System.out.print("Write path to Watch: ");
+			String PATH = new BufferedReader(new InputStreamReader(System.in)).readLine().toString();
+			DirectoryManagerSingleton.init(PATH);
 
 			// IP of the remote server
-			System.out.print("IP remote Server:");
-			String ip = new BufferedReader(new InputStreamReader(System.in)).readLine();
+			System.out.println("(Y) for Conect to remote server, Anything to wait for a conection: ");
+			String option = new BufferedReader(new InputStreamReader(System.in)).readLine().toString();
 
-			// Port of the remote server
-//			System.out.print("Port of remote server (0 for not connecting):");
-//			port = Integer.parseInt(new BufferedReader(new InputStreamReader(System.in)).readLine());
 			Server server = new Server();
 			Thread t = new Thread(server);
-			ControlClient controlClient = new ControlClient(ip);
-			Thread c = new Thread(controlClient);
 
-			// Throw Server and ControlClient on a thread each
+			if (option.equals("Y") || option.equals("y")) {
+				System.out.print("IP remote Server: ");
+				String ip = new BufferedReader(new InputStreamReader(System.in)).readLine();
+				ControlClient controlClient = new ControlClient(ip);
+				Thread c = new Thread(controlClient);
+				c.start();
 
-			c.start();
-
+			}
 			t.start();
 
 		} catch (NumberFormatException e) {

@@ -21,6 +21,9 @@ public class ReadPackage extends Base_Package implements Package_Executor {
 	}
 
 	public List<byte[]> execute()  {
+		
+		System.out.println("READ #" + " | FileName: " + getParsedName());
+
 
 		FileManager fm = new FileManager(getParsedName());
 

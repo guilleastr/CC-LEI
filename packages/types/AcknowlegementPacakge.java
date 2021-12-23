@@ -32,7 +32,9 @@ public class AcknowlegementPacakge extends Base_Package implements Package_Execu
 		System.out.println("ACK #" + getAckNumber() + "| Seg #" + getSegmentation() + " | FileName: " + getFileName());
 
 		List<byte[]> responses = new ArrayList<>();
-		if (this.segmentation != END_SEGMENTATION) {
+		if (this.ackNumber == PackageBuilder.CONTROL_TYPE) {
+			return responses;
+		} else if (this.segmentation != END_SEGMENTATION) {
 			try {
 
 				DirectoryManager dm = DirectoryManagerSingleton.getInstance();
@@ -51,8 +53,7 @@ public class AcknowlegementPacakge extends Base_Package implements Package_Execu
 
 					responses.add(PackageBuilder.buildDataPacakge(this.getFileName(), data, seg));
 
-				}
-				else if(ackNumber==PackageBuilder.WRITE_TYPE) {
+				} else if (ackNumber == PackageBuilder.WRITE_TYPE) {
 					byte[] data = DirectoryManagerSingleton.getInstance().getNextBytes(this.getParsedName(), 0,
 							PackageBuilder.MAX_DATA_FOR_PACKAGE);
 					try {
@@ -66,8 +67,9 @@ public class AcknowlegementPacakge extends Base_Package implements Package_Execu
 				e.printStackTrace();
 			}
 		}
+
 		else {
-			System.out.println("FILE: "+this.getFileName()+" TRANSMITIONCOMPLETED");
+			System.out.println("FILE: " + this.getFileName() + " TRANSMITIONCOMPLETED");
 			FileBuilderPool.save(this.getFileName());
 		}
 

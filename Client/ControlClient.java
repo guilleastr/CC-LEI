@@ -47,8 +47,17 @@ public class ControlClient implements Runnable {
 				ds.send(dp);
 
 				ds.close();
+				int count=100;
+				String s="Seconds to Control Again: "+count;
 
-				Thread.sleep(100000);
+				while(count>0) {
+					//System.out.println("\r".repeat(s.length()));
+					count--;
+					s="Seconds to Control Again: "+count;
+					//System.out.println(s);
+					Thread.sleep(1000);
+				}
+
 
 			}
 
