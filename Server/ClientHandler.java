@@ -3,6 +3,8 @@ package Server;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +13,7 @@ import packages.PackageBuilder;
 import packages.PackageParser;
 import packages.types.Base_Package;
 import packages.types.Package_Executor;
-import stream.CustomDataOutStream;
+import stream.CustomDatagramPacketManager;
 
 /**
  * Created when a server recieves a request. ClientHandler process the request
@@ -19,47 +21,36 @@ import stream.CustomDataOutStream;
  *
  */
 public class ClientHandler implements Runnable {
-	private Socket socket;
+	private DatagramPacket recieved;
 
-	public ClientHandler(Socket socket) {
-		this.socket = socket;
-	}
-
-	public Socket getSocket() {
-		return socket;
+	public ClientHandler(DatagramPacket recieved) {
+		this.recieved = recieved;
 	}
 
 	@Override
 	public void run() {
 
 		try {
-			// getting write and read streams from socket
-			// DataOutputStream out = new DataOutputStream(this.socket.getOutputStream());
-			DataInputStream in = new DataInputStream(this.socket.getInputStream());
+			
 
-			Package_Executor pe = PackageParser.parsePackage(in.readAllBytes());
+			Package_Executor pe = PackageParser.parsePackage(recieved.getData());
 
 			List<byte[]> response = new ArrayList<byte[]>();
-			short type=PackageBuilder.ERROR_TYPE;
+			short type = PackageBuilder.ERROR_TYPE;
 			if (pe != null) {
-				 type = (short) ((Base_Package) pe).getType();
+				type = (short) ((Base_Package) pe).getType();
 				response = pe.execute();
 			} else {
 				response.add(PackageBuilder.buildErrorPackage(0, "Could not read package"));
 			}
-			
-			// DataOutputStream out = new DataOutputStream(this.socket.getOutputStream());
-			System.out.println("Package Recieved: "+type);
-			CustomDataOutStream out = new CustomDataOutStream(this.socket.getOutputStream(), socket);
+
+			System.out.println("Package Recieved: " + type);
+
+			CustomDatagramPacketManager out = new CustomDatagramPacketManager(recieved.getAddress(),recieved.getPort());
 			if (response != null) {
 				out.write(response, type);
 			}
-			in.close();
 
-			out.flush();
-			out.close();
-
-			socket.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

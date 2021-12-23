@@ -1,60 +1,36 @@
 package Server;
 
-import java.io.DataInputStream;
 import java.io.IOException;
-import java.net.Socket;
-import java.util.ArrayList;
-import java.util.List;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
 
 import packages.PackageBuilder;
-import packages.PackageParser;
-import packages.types.Package_Executor;
-import stream.CustomDataOutStream;
 
-public class FileHandler extends Thread{
-	private Socket socket;
-	private byte[] startPackage;
+public class FileHandler extends Thread {
+	private DatagramSocket datagramSocket;
+	private DatagramPacket send;
 
-	public FileHandler(Socket socket, byte[] data) {
-		this.socket=socket;
-		this.startPackage=data;
-		
+	public FileHandler(DatagramPacket send, DatagramSocket datagramSocket) {
+		this.datagramSocket = datagramSocket;
+		this.send = send;
+
 	}
 
-	public Socket getSocket() {
-		return socket;
-	}
 
 	@Override
 	public void run() {
-		
-		//TODO STOP AND WAIT MECANISIM
+
+		// TODO STOP AND WAIT MECANISIM
 
 		try {
-			// getting write and read streams from socket
-			// DataOutputStream out = new DataOutputStream(this.socket.getOutputStream());
-			DataInputStream in = new DataInputStream(this.socket.getInputStream());
-
-			Package_Executor pe = PackageParser.parsePackage(in.readAllBytes());
-			List<byte[]> response = new ArrayList<byte[]>();
-			if (pe != null) {
-				response = pe.execute();
-
-			} else {
-				response.add(PackageBuilder.buildErrorPackage(0, "Could not read package"));
-			}
-			// DataOutputStream out = new DataOutputStream(this.socket.getOutputStream());
-//			CustomDataOutStream out = new CustomDataOutStream(this.socket.getOutputStream(),
-//					this.socket.getRemoteSocketAddress(), this.socket.getPort());
-//			if (response != null) {
-//				out.write(response);
-//			}
-//			in.close();
-//
-//			out.flush();
-//			out.close();
-
-			socket.close();
+			datagramSocket.send(send);
+			
+			byte[] data= new byte[PackageBuilder.MAX_PACKAGE_SIZE];
+			DatagramPacket recieved= new DatagramPacket(data, PackageBuilder.MAX_PACKAGE_SIZE);
+			datagramSocket.receive(recieved);
+			System.out.println("Recieved: "+recieved.getData());
+			
+			datagramSocket.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
