@@ -1,8 +1,12 @@
 package packages.types;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import file.DirectoryManagerSingleton;
+import packages.PackageBuilder;
 
 public class AcknowlegementPacakge extends Base_Package implements Package_Executor {
 
@@ -21,6 +25,17 @@ public class AcknowlegementPacakge extends Base_Package implements Package_Execu
 
 	public List<byte[]> execute() {
 		List<byte[]> responses = new ArrayList<>();
+		if(ackNumber==PackageBuilder.DATA_TYPE) {
+			byte[] data = DirectoryManagerSingleton.getInstance().getNextBytes(this.getFileName(), this.segmentation,
+					PackageBuilder.MAX_DATA_FOR_PACKAGE);
+			try {
+				responses.add(PackageBuilder.buildDataPacakge(this.getFileName(), data, this.segmentation+PackageBuilder.MAX_DATA_FOR_PACKAGE));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
 		System.out.println("ACK #" + getAckNumber() + "| Seg #" + getSegmentation() + " | FileName: "
 				+ new String(getFile_name()).toString());
 		return null;
@@ -41,6 +56,7 @@ public class AcknowlegementPacakge extends Base_Package implements Package_Execu
 	public void setSegmentation(short segmentation) {
 		this.segmentation = segmentation;
 	}
+	
 
 	public short getSize_file_name() {
 		return size_file_name;
@@ -57,6 +73,11 @@ public class AcknowlegementPacakge extends Base_Package implements Package_Execu
 	public void setFile_name(byte[] file_name) {
 		this.file_name = file_name;
 	}
+	
+	private String getFileName() {
+		return new String(this.file_name).toString();
+	}
+
 
 	@Override
 	public boolean equals(Object o) {

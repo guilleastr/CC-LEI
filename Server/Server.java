@@ -45,7 +45,6 @@ public class Server implements Runnable {
 						PackageBuilder.MAX_PACKAGE_SIZE);
 				ds.receive(dp);
 
-				System.out.println("SERVER: Request recieved");
 				ClientHandler ch = new ClientHandler(dp); // socket.accept - listens to clients and
 															// accepts the connection returning a new socket
 				Thread t = new Thread(ch);

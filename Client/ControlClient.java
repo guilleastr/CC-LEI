@@ -42,7 +42,7 @@ public class ControlClient implements Runnable {
 				List<String> filenames = dm.getAvailableFiles();
 
 				// byte[] data = PackageBuilder.buildControlPackage(filenames);
-				byte[] data = PackageBuilder.buildReadPacakge("Prueba");
+				byte[] data = PackageBuilder.buildReadPacakge("fichero.txt");
 
 				// write and read streams from socket
 				DatagramPacket dp = new DatagramPacket(data, PackageBuilder.MAX_PACKAGE_SIZE,
@@ -51,7 +51,7 @@ public class ControlClient implements Runnable {
 
 				ds.close();
 
-				Thread.sleep(5000);
+				Thread.sleep(100000);
 
 			}
 

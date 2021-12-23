@@ -16,6 +16,8 @@ public class PackageBuilder {
 	public static final byte DATA_TYPE = 4;
 	public static final byte ACK_TYPE = 5;
 	public static final byte ERROR_TYPE = 6;
+	
+	public static final int MAX_DATA_FOR_PACKAGE=1300;
 
 	public final static int MAX_PACKAGE_SIZE = 1400;
 
@@ -148,7 +150,7 @@ public class PackageBuilder {
 	 * @return
 	 * @throws IOException
 	 */
-	public static byte[] buildAcknowledgementPackage(int segmentation, String filename) throws IOException {
+	public static byte[] buildAcknowledgementPackage(int segmentation, byte answer, String filename) throws IOException {
 
 		byte type = ACK_TYPE;
 
@@ -158,14 +160,12 @@ public class PackageBuilder {
 		short size = (short) filename.length();
 		byte[] size_write = new byte[] { (byte) (size >>> 8), (byte) (size & 0xFF) };
 
-		short ack_s = (short) filename.length();
-		byte[] ack_write = new byte[] { (byte) (ack_s >>> 8), (byte) (ack_s & 0xFF) };
 
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		baos.write(type);
 		baos.write(seg_write);
 		baos.write(size_write);
-		baos.write(ack_write);
+		baos.write(answer);
 		baos.write(filename.getBytes());
 
 		byte[] pack = buildPackage(baos.toByteArray());

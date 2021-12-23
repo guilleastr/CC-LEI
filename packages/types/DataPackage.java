@@ -1,9 +1,12 @@
 package packages.types;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+
+import packages.PackageBuilder;
 
 public class DataPackage extends Base_Package  implements Package_Executor{
 
@@ -26,13 +29,18 @@ public class DataPackage extends Base_Package  implements Package_Executor{
 
 
 	public  List<byte[]> execute() {
-    	
-    	List<byte[]> responses = new ArrayList<>();
+    	List<byte[]> responses = new ArrayList<>();    	
+    	try {
+			responses.add(PackageBuilder.buildAcknowledgementPackage(this.segmentation,PackageBuilder.DATA_TYPE, this.getFileName()));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     	System.out.println(getType());
         System.out.println(sizeSegment);
         System.out.println(segmentation);
         System.out.println(new String(data).toString());
-        return null;
+        return responses;
     }
 
     public short getSizeSegment() {

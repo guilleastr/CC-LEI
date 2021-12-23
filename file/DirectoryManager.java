@@ -87,4 +87,15 @@ public class DirectoryManager {
 		return customFiles;
 	}
 
+	public byte[] getNextBytes(String filename, int start, int end) {
+		FileManager fm= new FileManager(filename);
+		if(fm.getDataLength()< start + end) {
+			return fm.getBytes(start,fm.getDataLength());
+		}
+		return 	fm.getBytes(start,start+ end);
+		
+	
+		
+	}
+
 }

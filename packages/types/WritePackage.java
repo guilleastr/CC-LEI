@@ -3,6 +3,8 @@ package packages.types;
 import java.util.ArrayList;
 import java.util.List;
 
+import packages.PackageBuilder;
+
 public class WritePackage extends Base_Package implements Package_Executor {
 
 	private short size;
@@ -20,6 +22,7 @@ public class WritePackage extends Base_Package implements Package_Executor {
 		System.out.println(this.getType());
 		System.out.println(getSize());
 		System.out.println(new String(getFile_name()).toString());
+		
 		return null;
 
 	}
