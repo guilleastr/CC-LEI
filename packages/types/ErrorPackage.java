@@ -10,12 +10,7 @@ public class ErrorPackage extends Base_Package implements Package_Executor {
 	private short size;
 	private byte[] message;
 
-	private static final byte FILE_NOT_FOUND =  1;
-	private static final byte FILE_NOT_AVAILABLE = 2;
-	private static final byte NO_PERMISSIONS = 3;
-	private static final byte OCCUPIED_DIRECTORY = 4;
-
-	public ErrorPackage(int type, short typeError, short size, byte[] msg) {
+	public ErrorPackage(short type, short typeError, short size, byte[] msg) {
 		super(type);
 		this.typeError = typeError;
 		this.size = size;
@@ -28,7 +23,7 @@ public class ErrorPackage extends Base_Package implements Package_Executor {
 		System.out.println(getTypeError());
 		System.out.println(getSize());
 		System.out.println(new String(getMessage()).toString());
-		return null;
+		return responses;
 	}
 
 	public int getTypeError() {

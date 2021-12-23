@@ -13,7 +13,7 @@ public class ReadPackage extends Base_Package implements Package_Executor {
 	private short size;
 	private byte[] file_name;
 
-	public ReadPackage(int type, short size, byte[] file_name) {
+	public ReadPackage(short type, short size, byte[] file_name) {
 		super(type);
 		this.size = size;
 		this.file_name = file_name;
@@ -35,6 +35,7 @@ public class ReadPackage extends Base_Package implements Package_Executor {
 
 			responses.add(PackageBuilder.buildErrorPackage(1, "file not available"));
 		}
+		
 		return responses;
 
 	}
