@@ -160,12 +160,14 @@ public class PackageBuilder {
 		short size = (short) filename.length();
 		byte[] size_write = new byte[] { (byte) (size >>> 8), (byte) (size & 0xFF) };
 
+		byte[] answer_write =new byte[] { (byte) (answer >>> 8), (byte) (answer & 0xFF) };
+		
 
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		baos.write(type);
 		baos.write(seg_write);
 		baos.write(size_write);
-		baos.write(answer);
+		baos.write(answer_write);
 		baos.write(filename.getBytes());
 
 		byte[] pack = buildPackage(baos.toByteArray());

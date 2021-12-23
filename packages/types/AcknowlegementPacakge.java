@@ -2,12 +2,12 @@ package packages.types;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
 import file.DirectoryManager;
 import file.DirectoryManagerSingleton;
+import file.builder.FileBuilderPool;
 import packages.PackageBuilder;
 
 public class AcknowlegementPacakge extends Base_Package implements Package_Executor {
@@ -29,31 +29,46 @@ public class AcknowlegementPacakge extends Base_Package implements Package_Execu
 
 	public List<byte[]> execute() {
 
-		System.out.println("ACK #" + getAckNumber() + "| Seg #" + getSegmentation() + " | FileName: "
-				+ getFileName());
+		System.out.println("ACK #" + getAckNumber() + "| Seg #" + getSegmentation() + " | FileName: " + getFileName());
 
 		List<byte[]> responses = new ArrayList<>();
 		if (this.segmentation != END_SEGMENTATION) {
 			try {
 
 				DirectoryManager dm = DirectoryManagerSingleton.getInstance();
-				if (dm.checkCompleted(this.getFileName(), segmentation)) {
+				if (dm.checkCompleted(this.getFileName(), segmentation * PackageBuilder.MAX_DATA_FOR_PACKAGE)) {
 
 					responses.add(PackageBuilder.buildAcknowledgementPackage(END_SEGMENTATION, PackageBuilder.ACK_TYPE,
 							this.getFileName()));
 
 				} else if (ackNumber == PackageBuilder.DATA_TYPE) {
 
-					byte[] data = dm.getNextBytes(this.getFileName(), this.segmentation,
+					byte[] data = dm.getNextBytes(this.getFileName(),
+							this.segmentation * PackageBuilder.MAX_DATA_FOR_PACKAGE,
 							PackageBuilder.MAX_DATA_FOR_PACKAGE);
 
-					responses.add(PackageBuilder.buildDataPacakge(this.getFileName(), data,
-							this.segmentation + PackageBuilder.MAX_DATA_FOR_PACKAGE));
+					short seg = (short) (this.segmentation + 1);
 
+					responses.add(PackageBuilder.buildDataPacakge(this.getFileName(), data, seg));
+
+				}
+				else if(ackNumber==PackageBuilder.WRITE_TYPE) {
+					byte[] data = DirectoryManagerSingleton.getInstance().getNextBytes(this.getParsedName(), 0,
+							PackageBuilder.MAX_DATA_FOR_PACKAGE);
+					try {
+						responses.add(PackageBuilder.buildDataPacakge(this.getParsedName(), data, 0));
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+		}
+		else {
+			System.out.println("FILE: "+this.getFileName()+" TRANSMITIONCOMPLETED");
+			FileBuilderPool.save(this.getFileName());
 		}
 
 		return responses;
@@ -91,9 +106,13 @@ public class AcknowlegementPacakge extends Base_Package implements Package_Execu
 		this.filename = filename;
 	}
 
-	 public String getFileName() {
-	    	return new String(this.filename).toString();
-	    }
+	public String getFileName() {
+		return new String(this.filename).toString();
+	}
+
+	private String getParsedName() {
+		return new String(this.filename).toString();
+	}
 
 	@Override
 	public boolean equals(Object o) {

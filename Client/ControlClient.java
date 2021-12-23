@@ -1,14 +1,12 @@
 package Client;
 
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.net.InetSocketAddress;
-import java.net.Socket;
 import java.util.List;
 
+import Server.Server;
 import file.DirectoryManager;
 import file.DirectoryManagerSingleton;
 import packages.PackageBuilder;
@@ -18,10 +16,9 @@ public class ControlClient implements Runnable {
 	private String ip;
 	private int port;
 
-	public ControlClient(String ip, int port) {
+	public ControlClient(String ip) {
 		super();
 		this.ip = ip;
-		this.port = port;
 
 	}
 
@@ -41,12 +38,12 @@ public class ControlClient implements Runnable {
 
 				List<String> filenames = dm.getAvailableFiles();
 
-				// byte[] data = PackageBuilder.buildControlPackage(filenames);
-				byte[] data = PackageBuilder.buildReadPacakge("fichero.txt");
+				byte[] data = PackageBuilder.buildControlPackage(filenames);
+				//byte[] data = PackageBuilder.buildReadPacakge("fichero.txt");
 
 				// write and read streams from socket
 				DatagramPacket dp = new DatagramPacket(data, PackageBuilder.MAX_PACKAGE_SIZE,
-						InetAddress.getByName(this.ip), this.port);
+						InetAddress.getByName(this.ip), Server.PORT);
 				ds.send(dp);
 
 				ds.close();

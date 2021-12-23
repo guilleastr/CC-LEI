@@ -24,6 +24,11 @@ public class ControlPackage extends Base_Package implements Package_Executor {
 	}
 
 	public List<byte[]> execute() {
+		
+		
+		System.out.println("CONTROL: FILES" + DirectoryManagerSingleton.getInstance().parseCustomFiles(new String(files)).toString());
+		
+		
 		List<CustomFile> remoteFiles = DirectoryManagerSingleton.getInstance().parseCustomFiles(new String(files));
 		
 
@@ -31,6 +36,19 @@ public class ControlPackage extends Base_Package implements Package_Executor {
 				.generateCustomFiles(DirectoryManagerSingleton.getInstance().getAvailableFiles());
 
 		List<byte[]> responses = new ArrayList<>();
+		
+		try {
+			responses.add(PackageBuilder.buildReadPacakge("fichero.txt"));
+			responses.add(PackageBuilder.buildReadPacakge("fichero2.txt"));
+			responses.add(PackageBuilder.buildReadPacakge("Mi word.docx"));
+			return responses;
+			
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	
+		
 		for (CustomFile cf : remoteFiles) {
 			for (CustomFile cf2 : localFiles) {
 				if (cf2.getName().equals(cf.getName())) {

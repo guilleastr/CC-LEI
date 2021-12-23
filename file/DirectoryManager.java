@@ -97,9 +97,17 @@ public class DirectoryManager {
 	
 		
 	}
+	
+	public int getNumberNextBytes(String filename, int start, int end) {
+		FileManager fm= new FileManager(filename);
+		if(fm.getDataLength()< start + end) {
+			return fm.getDataLength();
+		}
+		return 	start + end;
+	}
 
-	public boolean checkCompleted(String filename, short segmentation) {
-		return new FileManager(filename).getDataLength()>=segmentation;
+	public boolean checkCompleted(String filename, int segmentation) {
+		return new FileManager(filename).getDataLength()<=segmentation;
 	}
 
 }

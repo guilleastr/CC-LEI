@@ -16,6 +16,8 @@ import packages.PackageBuilder;
  */
 public class Server implements Runnable {
 
+	public final static int PORT = 8081;
+
 	private int port;
 
 	private List<String> conenctedIPs = new ArrayList<String>();
@@ -25,18 +27,22 @@ public class Server implements Runnable {
 		this.port = port;
 	}
 
+	public Server() {
+		// TODO Auto-generated constructor stub
+	}
+
 	/**
 	 *
 	 * Starts the server
 	 */
 	@Override
 	public void run() {
-		int port = this.port;
+		int port = PORT;
 
-		System.out.println("Listening on port " + port);
+		System.out.println("Listening on port " + PORT);
 		boolean running = true;
 		try {
-			DatagramSocket ds = new DatagramSocket(port);
+			DatagramSocket ds = new DatagramSocket(PORT);
 			while (running) { // bad partice - inifinite loop
 				// one thread by client
 
@@ -61,9 +67,9 @@ public class Server implements Runnable {
 		String ip = ((InetSocketAddress) s.getRemoteSocketAddress()).getAddress().getHostAddress();
 		if (!conenctedIPs.contains(ip)) {
 			conenctedIPs.add(ip);
-			ControlClient cc = new ControlClient(ip, s.getPort());
+			ControlClient cc = new ControlClient(ip);
 			System.out.println("New ControlClient Created!");
-			System.out.println("New Connection: " + ip + ":" + s.getPort());
+			System.out.println("New Connection: " + ip );
 			Thread t = new Thread(cc);
 			t.start();
 		}

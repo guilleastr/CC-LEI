@@ -47,6 +47,7 @@ public class ClientHandler implements Runnable {
 
 			System.out.println("Package Recieved: " + type);
 
+			recieved.getPort();
 			CustomDatagramPacketManager out = new CustomDatagramPacketManager(recieved.getAddress(),recieved.getPort());
 			if (response != null) {
 				out.write(response, type);

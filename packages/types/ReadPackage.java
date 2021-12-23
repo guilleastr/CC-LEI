@@ -20,7 +20,7 @@ public class ReadPackage extends Base_Package implements Package_Executor {
 		this.file_name = file_name;
 	}
 
-	public List<byte[]> execute() throws IOException {
+	public List<byte[]> execute()  {
 
 		FileManager fm = new FileManager(getParsedName());
 
@@ -41,7 +41,12 @@ public class ReadPackage extends Base_Package implements Package_Executor {
 				e.printStackTrace();
 			}
 		}else {
-			responses.add(PackageBuilder.buildErrorPackage(result, "File not found"));
+			try {
+				responses.add(PackageBuilder.buildErrorPackage(result, "File not found"));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 		

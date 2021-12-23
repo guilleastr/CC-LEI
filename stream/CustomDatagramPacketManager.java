@@ -7,6 +7,7 @@ import java.net.InetAddress;
 import java.util.List;
 
 import Server.FileHandler;
+import Server.Server;
 import packages.PackageBuilder;
 
 public class CustomDatagramPacketManager {
@@ -22,7 +23,8 @@ public class CustomDatagramPacketManager {
 	public void write(List<byte[]> dataList) throws IOException {
 		if (dataList.size() == 1) {
 			DatagramSocket dsUndefined = new DatagramSocket();
-			DatagramPacket send = new DatagramPacket(dataList.get(0), PackageBuilder.MAX_PACKAGE_SIZE,this.ip, 5555);
+			
+			DatagramPacket send = new DatagramPacket(dataList.get(0), PackageBuilder.MAX_PACKAGE_SIZE,this.ip, Server.PORT);
 			dsUndefined.send(send);
 			System.out.println("Package Return: " + dataList.get(0)[0]);
 
@@ -33,10 +35,14 @@ public class CustomDatagramPacketManager {
 		try {
 			if (type == PackageBuilder.CONTROL_TYPE) {
 				for (byte[] data : response) {
-					DatagramPacket send = new DatagramPacket(data, PackageBuilder.MAX_PACKAGE_SIZE, ip, port);
-					send.setAddress(ip);
+					DatagramPacket send = new DatagramPacket(data, PackageBuilder.MAX_PACKAGE_SIZE, ip, Server.PORT);
+					//send.setAddress(ip);
+					
+					DatagramSocket dsUndefined = new DatagramSocket();
+					dsUndefined.send(send);
+					System.out.println("Package Return: " + data[0]);
 					// System.out.println("Package Return: " + data[0]);
-					FileHandler fh = new FileHandler(send, new DatagramSocket());
+					//FileHandler fh = new FileHandler(send, new DatagramSocket());
 					// fh.start();
 				}
 			} else {

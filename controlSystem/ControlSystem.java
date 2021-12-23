@@ -35,29 +35,24 @@ public class ControlSystem {
 
 			// Star parameters of the server: Command input
 			// Port of this server
-			System.out.print("Port of server: ");
-			Server server = new Server(
-					Integer.parseInt(new BufferedReader(new InputStreamReader(System.in)).readLine()));
+//			System.out.print("Port of server: ");
+			
 
 			// IP of the remote server
 			System.out.print("IP remote Server:");
 			String ip = new BufferedReader(new InputStreamReader(System.in)).readLine();
 
 			// Port of the remote server
-			System.out.print("Port of remote server (0 for not connecting):");
-			port = Integer.parseInt(new BufferedReader(new InputStreamReader(System.in)).readLine());
-
-			if (port > 0) {
-
-				ControlClient controlClient = new ControlClient(ip, port);
-				Thread c = new Thread(controlClient);
-
-				c.start();
-			}
+//			System.out.print("Port of remote server (0 for not connecting):");
+//			port = Integer.parseInt(new BufferedReader(new InputStreamReader(System.in)).readLine());
+			Server server = new Server();
+			Thread t = new Thread(server);
+			ControlClient controlClient = new ControlClient(ip);
+			Thread c = new Thread(controlClient);
 
 			// Throw Server and ControlClient on a thread each
 
-			Thread t = new Thread(server);
+			c.start();
 
 			t.start();
 
