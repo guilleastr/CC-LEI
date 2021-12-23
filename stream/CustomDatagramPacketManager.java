@@ -14,16 +14,15 @@ public class CustomDatagramPacketManager {
 	private InetAddress ip;
 	private int port;
 
-	public CustomDatagramPacketManager(InetAddress address, int port) {
+	public CustomDatagramPacketManager(InetAddress ip, int port) {
 		this.ip = ip;
 		this.port = port;
 	}
 
 	public void write(List<byte[]> dataList) throws IOException {
 		if (dataList.size() == 1) {
-			DatagramSocket dsUndefined = new DatagramSocket(this.port, this.ip);
+			DatagramSocket dsUndefined = new DatagramSocket();
 			DatagramPacket send = new DatagramPacket(dataList.get(0), PackageBuilder.MAX_PACKAGE_SIZE,this.ip, this.port);
-
 			dsUndefined.send(send);
 			System.out.println("Package Return: " + dataList.get(0)[0]);
 
