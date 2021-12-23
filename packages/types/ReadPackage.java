@@ -24,18 +24,19 @@ public class ReadPackage extends Base_Package implements Package_Executor {
 		FileManager fm = new FileManager(getParsedName());
 
 		List<byte[]> responses = new ArrayList<>();
-		if (fm.checkFile()) {
-			System.out.println(this.getType());
-			System.out.println(getSize());
-			System.out.println(new String(getFile_name()).toString());
-
-			responses.add(PackageBuilder.buildAcknowledgementPackage(0, this.getParsedName()));
-
-		} else {
-
-			responses.add(PackageBuilder.buildErrorPackage(1, "file not available"));
+		switch (fm.checkFile()) {
+			case 0:
+				System.out.println(this.getType());
+				System.out.println(getSize());
+				System.out.println(new String(getFile_name()).toString());
+				responses.add(PackageBuilder.buildAcknowledgementPackage(0, this.getParsedName()));
+			case ErrorPackage.FILE_NOT_FOUND:
+				responses.add(PackageBuilder.buildErrorPackage(ErrorPackage.FILE_NOT_FOUND, "File not found"));
+			case ErrorPackage.FILE_NOT_AVAILABLE:
+				responses.add(PackageBuilder.buildErrorPackage(ErrorPackage.FILE_NOT_AVAILABLE, "File not available"));
+			case ErrorPackage.NO_PERMISSION:
+				responses.add(PackageBuilder.buildErrorPackage(ErrorPackage.NO_PERMISSION, "No permission"));
 		}
-		
 		return responses;
 
 	}

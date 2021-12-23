@@ -10,6 +10,11 @@ public class ErrorPackage extends Base_Package implements Package_Executor {
 	private short size;
 	private byte[] message;
 
+	public static final byte FILE_NOT_FOUND = 1;
+	public static final byte FILE_NOT_AVAILABLE = 2;
+	public static final byte NO_PERMISSION = 3;
+	public static final byte OCCUPIED_DIRECTORY = 4;
+
 	public ErrorPackage(short type, short typeError, short size, byte[] msg) {
 		super(type);
 		this.typeError = typeError;

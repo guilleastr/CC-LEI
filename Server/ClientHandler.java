@@ -12,6 +12,7 @@ import java.util.List;
 import packages.PackageBuilder;
 import packages.PackageParser;
 import packages.types.Base_Package;
+import packages.types.ErrorPackage;
 import packages.types.Package_Executor;
 import stream.CustomDatagramPacketManager;
 
@@ -41,7 +42,7 @@ public class ClientHandler implements Runnable {
 				type = (short) ((Base_Package) pe).getType();
 				response = pe.execute();
 			} else {
-				response.add(PackageBuilder.buildErrorPackage(0, "Could not read package"));
+				response.add(PackageBuilder.buildErrorPackage(ErrorPackage.FILE_NOT_AVAILABLE, "Could not read package"));
 			}
 
 			System.out.println("Package Recieved: " + type);

@@ -184,18 +184,19 @@ public class PackageBuilder {
 	 * @return
 	 * @throws IOException
 	 */
-	public static byte[] buildErrorPackage(int type_error, String error_msg) throws IOException {
+
+	//Change this
+	public static byte[] buildErrorPackage(byte type_error, String error_msg) throws IOException {
 		byte type = ERROR_TYPE;
 
-		short error_t = (short) type_error;
-		byte[] error_write = new byte[] { (byte) (error_t >>> 8), (byte) (error_t & 0xFF) };
+		byte error_t = (byte) type_error;
 
 		short error_msg_size = (short) error_msg.length();
 		byte[] error_msg_size_write = new byte[] { (byte) (error_msg_size >>> 8), (byte) (error_msg_size & 0xFF) };
 
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		baos.write(type);
-		baos.write(error_write);
+		baos.write(type_error);
 		baos.write(error_msg_size_write);
 		baos.write(error_msg.getBytes());
 
