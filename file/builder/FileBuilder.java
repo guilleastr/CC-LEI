@@ -37,7 +37,7 @@ public class FileBuilder {
 			System.arraycopy(list, 0, total, i, list.length);
 			i += list.length;
 		}
-		String path = DirectoryManagerSingleton.getInstance().getFullPath() + "/copi/" ;
+		String path = DirectoryManagerSingleton.getInstance().getFullPath() ;
 		File outputFile = new File(path + fileName);
 
 		try (FileOutputStream fos = new FileOutputStream(path+fileName)) {
