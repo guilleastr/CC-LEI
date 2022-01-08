@@ -77,6 +77,7 @@ public class PackageParser {
 	 * @return
 	 */
 	private static Package_Executor parseAckPackage(byte[] data, short type) {
+
 		short segment = ByteBuffer.wrap(Arrays.copyOfRange(data, 1, 3)).getShort();
 		short size = ByteBuffer.wrap(Arrays.copyOfRange(data, 3, 5)).getShort();
 		short ack = ByteBuffer.wrap(Arrays.copyOfRange(data, 5, 7)).getShort();

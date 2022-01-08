@@ -85,6 +85,15 @@ public class CustomFile {
 		return time;
 	}
 
+
+@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		CustomFile that = (CustomFile) o;
+		return md5.equals(that.md5);
+	}
+
 	@Override
 	public String toString() {
 		return "FILE: "+ file.getName() + "; " + md5+"; TIME: "+time;

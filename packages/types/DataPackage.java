@@ -24,7 +24,6 @@ public class DataPackage extends Base_Package implements Package_Executor {
 	}
 
 	public List<byte[]> execute() {
-		System.out.println("DATA: " + this.getFileName()+ " | Segment: "+this.segmentation +" | Total: "+this.segmentation*PackageBuilder.MAX_DATA_FOR_PACKAGE);
 		List<byte[]> responses = new ArrayList<>();
 		try {
 			

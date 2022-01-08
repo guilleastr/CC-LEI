@@ -40,7 +40,7 @@ public class FileManager {
 
 	public byte checkFile() {
         String full_path = DirectoryManagerSingleton.getInstance().getFullPath();
-        File f = new File(full_path + "\\" + filename);
+        File f = new File(full_path + "/" + filename);
         byte ret = 0;
         if(!f.isFile())
             ret = ErrorPackage.FILE_NOT_AVAILABLE;

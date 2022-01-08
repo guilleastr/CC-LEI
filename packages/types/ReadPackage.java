@@ -29,11 +29,7 @@ public class ReadPackage extends Base_Package implements Package_Executor {
 
 		List<byte[]> responses = new ArrayList<>();
 		byte result=fm.checkFile();
-		
 		if (result== 0){
-			System.out.println(this.getType());
-			System.out.println(getSize());
-			System.out.println(new String(getFile_name()).toString());
 
 			byte[] data = DirectoryManagerSingleton.getInstance().getNextBytes(this.getParsedName(), 0,
 					PackageBuilder.MAX_DATA_FOR_PACKAGE);

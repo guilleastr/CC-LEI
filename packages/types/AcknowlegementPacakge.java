@@ -38,7 +38,8 @@ public class AcknowlegementPacakge extends Base_Package implements Package_Execu
 			try {
 
 				DirectoryManager dm = DirectoryManagerSingleton.getInstance();
-				if (dm.checkCompleted(this.getFileName(), segmentation * PackageBuilder.MAX_DATA_FOR_PACKAGE)) {
+
+				if (dm.checkCompleted(this.getFileName(), (segmentation+1) * PackageBuilder.MAX_DATA_FOR_PACKAGE)) {
 
 					responses.add(PackageBuilder.buildAcknowledgementPackage(END_SEGMENTATION, PackageBuilder.ACK_TYPE,
 							this.getFileName()));

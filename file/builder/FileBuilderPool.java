@@ -46,7 +46,7 @@ public class FileBuilderPool {
 				fb.buildFile();
 				fbAUX = fb;
 
-				return;
+				break;
 			}
 		}
 

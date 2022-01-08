@@ -27,7 +27,7 @@ public class ControlClient implements Runnable {
 	 */
 	@Override
 	public void run() {
-		System.out.println("connecting to " + this.ip + ":" + this.port);
+		System.out.println("connecting to " + this.ip + ":" + Server.PORT);
 		try {
 			DirectoryManager dm = DirectoryManagerSingleton.getInstance();
 
